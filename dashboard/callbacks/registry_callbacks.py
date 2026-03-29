@@ -2,10 +2,8 @@
 Registry Hub callbacks – model version click, stage filter.
 """
 
-import numpy as np
-import pandas as pd
 import plotly.graph_objects as go
-from dash import Input, Output, State, callback, html, no_update
+from dash import Input, Output, html, no_update
 import sys
 import os
 
@@ -17,14 +15,10 @@ from theme import (
     ACCENT_GRN,
     ACCENT_DIM,
     INFO,
-    WARNING,
-    CRITICAL,
-    SUCCESS,
     TEXT,
     TEXT_DIM,
     FONT,
     PLOT_LAYOUT,
-    CARD_STYLE,
 )
 
 _ALL_VERSIONS = {

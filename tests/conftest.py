@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Synthetic fallback generators (used when network access is unavailable)
 # ---------------------------------------------------------------------------
 
+
 def _make_synthetic_adult(n: int = 35000, seed: int = 42) -> pd.DataFrame:
     """Generate a synthetic Adult-dataset-schema DataFrame (no network required)."""
     rng = np.random.default_rng(seed)
@@ -34,7 +35,9 @@ def _make_synthetic_adult(n: int = 35000, seed: int = 42) -> pd.DataFrame:
     occupation = rng.choice(
         ["Exec-managerial", "Prof-specialty", "Tech-support", "Sales", "Machine-op-inspct"], n
     )
-    relationship = rng.choice(["Husband", "Wife", "Not-in-family", "Own-child", "Other-relative"], n)
+    relationship = rng.choice(
+        ["Husband", "Wife", "Not-in-family", "Own-child", "Other-relative"], n
+    )
     race = rng.choice(["White", "Black", "Asian-Pac-Islander", "Amer-Indian-Eskimo", "Other"], n)
     sex = rng.choice(["Male", "Female"], n)
     capital_gain = rng.integers(0, 99_999, n)
@@ -44,8 +47,7 @@ def _make_synthetic_adult(n: int = 35000, seed: int = 42) -> pd.DataFrame:
 
     # Learnable income rule — XGBoost achieves well above 75 % accuracy on this
     income = (
-        ((age > 38) & (education_num >= 13) & (hours_per_week >= 40))
-        | (capital_gain > 5_000)
+        ((age > 38) & (education_num >= 13) & (hours_per_week >= 40)) | (capital_gain > 5_000)
     ).astype(int)
     # Small random noise (< 5 %) so the rule is not perfectly deterministic
     flip_mask = rng.random(n) < 0.04
@@ -135,11 +137,24 @@ def _make_synthetic_credit(n: int = 1000, seed: int = 42) -> pd.DataFrame:
     """Generate a synthetic German-Credit-schema DataFrame."""
     rng = np.random.default_rng(seed)
     cat_vals = [f"A{i}" for i in range(1, 5)]
-    data = {col: rng.choice(cat_vals, n) for col in [
-        "status", "credit_history", "purpose", "savings", "employment",
-        "personal_status", "guarantors", "property", "installment_plans",
-        "housing", "job", "telephone", "foreign_worker",
-    ]}
+    data = {
+        col: rng.choice(cat_vals, n)
+        for col in [
+            "status",
+            "credit_history",
+            "purpose",
+            "savings",
+            "employment",
+            "personal_status",
+            "guarantors",
+            "property",
+            "installment_plans",
+            "housing",
+            "job",
+            "telephone",
+            "foreign_worker",
+        ]
+    }
     data.update(
         {
             "duration": rng.integers(4, 72, n),
@@ -158,6 +173,7 @@ def _make_synthetic_credit(n: int = 1000, seed: int = 42) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture(scope="session")
 def adult_df():

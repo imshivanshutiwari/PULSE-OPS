@@ -1,6 +1,5 @@
 import logging
 import sys
-from pathlib import Path
 
 
 def get_logger(name: str, level: str = "INFO") -> logging.Logger:

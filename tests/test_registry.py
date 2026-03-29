@@ -1,10 +1,7 @@
 """4 tests for MLflow model registry."""
 
-import pytest
-import os
 import tempfile
 import mlflow
-from mlflow.tracking import MlflowClient
 
 
 def _setup_local_mlflow():

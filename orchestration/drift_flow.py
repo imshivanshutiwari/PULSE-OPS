@@ -1,4 +1,3 @@
-from datetime import datetime
 from pathlib import Path
 from prefect import flow, task
 from utils.logger import get_logger
@@ -21,7 +20,6 @@ def load_reference_data_task(dataset_name: str):
 @task(name="load-current-data", retries=2)
 def load_current_data_task(dataset_name: str):
     from feature_store.feature_pipeline import FeaturePipeline
-    from data.fetchers.synthetic_drifter import PhysicsBasedDriftSimulator
 
     fp = FeaturePipeline()
     df = fp.compute_features(dataset_name)
@@ -33,7 +31,6 @@ def load_current_data_task(dataset_name: str):
 @task(name="run-evidently")
 def run_evidently_task(reference, current):
     from drift.evidently_detector import EvidentlyDriftDetector
-    from evidently.legacy.pipeline.column_mapping import ColumnMapping
 
     detector = EvidentlyDriftDetector()
     num_ref = reference.select_dtypes(include=["number"])

@@ -1,6 +1,5 @@
 import time
-from typing import Any, Dict, List, Optional
-import numpy as np
+from typing import Any, Dict, List
 import pandas as pd
 from utils.logger import get_logger
 

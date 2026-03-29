@@ -1,11 +1,8 @@
-"""4 tests for orchestration flows."""
-
-import pytest
+"""4 orchestration flows tests."""
 
 
 def test_training_flow_returns_run_id(small_adult_df):
     """training_flow should complete and return a run_id."""
-    import pandas as pd
     from data.processors.feature_engineer import FeatureEngineer
     from pathlib import Path
 
@@ -28,7 +25,6 @@ def test_training_flow_returns_run_id(small_adult_df):
 
 def test_drift_flow_creates_report(small_adult_df):
     """drift_detection_flow should complete and return drift info."""
-    import pandas as pd
     from data.processors.feature_engineer import FeatureEngineer
     from pathlib import Path
 

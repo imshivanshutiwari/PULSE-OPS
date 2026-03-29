@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Any, Optional
 import pandas as pd
@@ -106,7 +106,9 @@ class EvidentlyDriftDetector:
     ) -> PerformanceReport:
         if ModelPerformancePreset is None:
             logger.warning("ModelPerformancePreset not available in this Evidently version")
-            return PerformanceReport(accuracy=0.0, precision=0.0, recall=0.0, f1=0.0, roc_auc=0.0, per_class_metrics={})
+            return PerformanceReport(
+                accuracy=0.0, precision=0.0, recall=0.0, f1=0.0, roc_auc=0.0, per_class_metrics={}
+            )
         report = Report(metrics=[ModelPerformancePreset()])
         try:
             report.run(

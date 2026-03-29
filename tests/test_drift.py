@@ -1,9 +1,5 @@
 """5 tests for drift detection."""
 
-import pytest
-import pandas as pd
-import numpy as np
-
 
 def _make_reference_current(df, shift=False):
     from data.processors.feature_engineer import FeatureEngineer

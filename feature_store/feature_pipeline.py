@@ -1,5 +1,3 @@
-from pathlib import Path
-from typing import Optional
 import pandas as pd
 from feature_store.offline_store import OfflineStore
 from feature_store.online_store import OnlineStore
@@ -17,7 +15,6 @@ class FeaturePipeline:
         return self.offline.get_historical_features(dataset_name, feature_cols or [])
 
     def materialize_to_online(self, dataset_name: str) -> int:
-        df = self.offline.get_historical_features(dataset_name, [])
         self.online._load_dataset(dataset_name)
         count = len(self.online._cache.get(dataset_name, {}))
         logger.info(f"Materialized {count} records for {dataset_name}")

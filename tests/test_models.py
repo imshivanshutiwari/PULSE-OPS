@@ -1,10 +1,5 @@
 """4 tests for model training."""
 
-import pytest
-import numpy as np
-import pandas as pd
-from pathlib import Path
-
 
 def _prepare_adult_data(adult_df, sample_n=2000):
     from data.processors.feature_engineer import FeatureEngineer

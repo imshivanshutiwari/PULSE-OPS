@@ -1,5 +1,3 @@
-import threading
-import time
 from prometheus_client import Counter, Gauge, Histogram, start_http_server
 from utils.logger import get_logger
 

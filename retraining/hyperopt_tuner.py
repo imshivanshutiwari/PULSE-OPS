@@ -1,9 +1,7 @@
 from typing import Any, Dict
-import numpy as np
 import optuna
 import mlflow
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import lightgbm as lgb
 from utils.logger import get_logger

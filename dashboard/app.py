@@ -6,10 +6,7 @@ Main Dash application entry point.
 import os
 import sys
 import datetime
-import numpy as np
-
-import dash
-from dash import Dash, html, dcc, Input, Output, State
+from dash import Dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 
 # Ensure dashboard package is importable when run from any working directory
@@ -28,7 +25,6 @@ from theme import (
     ACCENT_DIM,
     SUCCESS,
     WARNING,
-    CRITICAL,
     INFO,
     TEXT,
     TEXT_DIM,
@@ -75,10 +71,19 @@ body {{
 ::-webkit-scrollbar-thumb:hover {{ background: {ACCENT_GRN}; }}
 .dash-tab {{ transition: all 0.2s ease; }}
 .tab-content {{ background-color: {BG_PRIMARY}; }}
-.Select-control {{ background-color: {BG_CARD} !important; color: {TEXT} !important; border-color: {BORDER} !important; font-family: {FONT}; }}
-.Select-menu-outer {{ background-color: {BG_PANEL} !important; border-color: {BORDER} !important; }}
-.Select-option {{ background-color: {BG_PANEL} !important; color: {TEXT} !important; font-family: {FONT}; }}
-.Select-option.is-selected {{ background-color: {ACCENT_DIM} !important; color: {ACCENT_GRN} !important; }}
+.Select-control {{
+    background-color: {BG_CARD} !important; color: {TEXT} !important;
+    border-color: {BORDER} !important; font-family: {FONT};
+}}
+.Select-menu-outer {{
+    background-color: {BG_PANEL} !important; border-color: {BORDER} !important;
+}}
+.Select-option {{
+    background-color: {BG_PANEL} !important; color: {TEXT} !important; font-family: {FONT};
+}}
+.Select-option.is-selected {{
+    background-color: {ACCENT_DIM} !important; color: {ACCENT_GRN} !important;
+}}
 .Select-option.is-focused {{ background-color: {ACCENT_DIM} !important; }}
 .Select-value-label {{ color: {TEXT} !important; }}
 """

@@ -4,7 +4,7 @@ from typing import List
 
 from fastapi import FastAPI, HTTPException
 from serving.predictor import ModelPredictor
-from serving.schemas import PredictionRequest, PredictionResponse, HealthResponse, ModelInfoResponse
+from serving.schemas import PredictionRequest, PredictionResponse, HealthResponse
 from utils.logger import get_logger
 
 logger = get_logger(__name__)

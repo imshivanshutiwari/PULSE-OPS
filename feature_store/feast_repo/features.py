@@ -6,7 +6,6 @@ from feature_store.feast_repo.data_sources import (
     adult_source,
     wine_source,
     bike_source,
-    credit_source,
 )
 
 income_features = FeatureView(

@@ -1,6 +1,5 @@
 from typing import Tuple
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from utils.logger import get_logger
 

@@ -1,4 +1,3 @@
-from typing import Optional
 from drift.evidently_detector import FullDriftSuite
 from utils.config_loader import get_drift_config
 from utils.logger import get_logger

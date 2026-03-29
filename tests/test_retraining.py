@@ -1,9 +1,5 @@
 """4 tests for retraining."""
 
-import pytest
-import pandas as pd
-import numpy as np
-
 
 def test_trigger_fires_on_high_drift(drift_suite):
     """Trigger should fire when drift_share > threshold."""

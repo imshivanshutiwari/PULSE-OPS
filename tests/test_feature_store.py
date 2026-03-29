@@ -1,12 +1,8 @@
 """4 tests for feature store."""
 
-import time
-import pytest
-
 
 def test_offline_retrieval_returns_correct_shape(small_adult_df):
     """Offline store should return correct number of features."""
-    import pandas as pd
     from data.processors.feature_engineer import FeatureEngineer
     from pathlib import Path
 
@@ -30,7 +26,6 @@ def test_offline_retrieval_returns_correct_shape(small_adult_df):
 
 def test_online_store_latency_under_10ms(small_adult_df):
     """100 online store lookups should average < 10ms."""
-    import pandas as pd
     from data.processors.feature_engineer import FeatureEngineer
     from pathlib import Path
 
@@ -55,7 +50,6 @@ def test_online_store_latency_under_10ms(small_adult_df):
 
 def test_feature_freshness_tracked(small_adult_df):
     """event_timestamp column must be present in stored features."""
-    import pandas as pd
     from data.processors.feature_engineer import FeatureEngineer
     from pathlib import Path
 
@@ -78,7 +72,6 @@ def test_feature_freshness_tracked(small_adult_df):
 
 def test_feature_pipeline_get_training_dataset(small_adult_df):
     """FeaturePipeline should return X, y for adult dataset."""
-    import pandas as pd
     from data.processors.feature_engineer import FeatureEngineer
     from pathlib import Path
 

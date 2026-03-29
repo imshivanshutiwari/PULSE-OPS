@@ -370,7 +370,6 @@ def build_viz04():
         ),
     ]
     headers = ["Timestamp", "Trigger", "Model", "Versions", "Gate", "Duration"]
-    cell_colors = []
     gate_col_colors = []
     for row in log_data:
         gate_col_colors.append(SUCCESS if row[4] == "PASS" else CRITICAL)
@@ -472,7 +471,10 @@ def build_viz05():
                 marker_line_width=1,
                 name=state,
                 showlegend=False,
-                hovertemplate=f"<b>{name}</b><br>State: {state}<br>Duration: {dur_sec}s<extra></extra>",
+                hovertemplate=(
+                    f"<b>{name}</b><br>State: {state}<br>"
+                    f"Duration: {dur_sec}s<extra></extra>"
+                ),
             )
         )
         fig.add_annotation(

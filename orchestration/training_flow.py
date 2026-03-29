@@ -1,6 +1,3 @@
-from datetime import datetime
-from typing import Optional
-import mlflow
 from prefect import flow, task
 from utils.logger import get_logger
 

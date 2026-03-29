@@ -1,10 +1,10 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 import mlflow
 import mlflow.sklearn
 import mlflow.xgboost
 import mlflow.lightgbm
-from utils.logger import get_logger
 from utils.config_loader import get_pipeline_config, get_model_config
+from utils.logger import get_logger
 
 logger = get_logger(__name__)
 

@@ -581,8 +581,6 @@ def build_viz13():
     drift_scores = np.clip(rng.exponential(0.04, len(all_dates)), 0, 0.5)
     drift_scores[rng.choice(len(all_dates), 20, replace=False)] = rng.uniform(0.2, 0.5, 20)
 
-    weeks = []
-    week_labels = []
     day_matrix = np.full((7, 53), np.nan)
 
     for i, (date, score) in enumerate(zip(all_dates, drift_scores)):

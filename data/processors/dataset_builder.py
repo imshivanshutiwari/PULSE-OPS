@@ -1,5 +1,4 @@
 import argparse
-import sys
 from pathlib import Path
 import pandas as pd
 from data.fetchers.uci_fetcher import UCIFetcher

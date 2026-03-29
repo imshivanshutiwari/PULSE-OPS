@@ -77,7 +77,7 @@ def retraining_flow(
 ):
     notify_task(f"Retraining triggered by: {triggered_by} for {dataset_name}/{model_type}")
     data = fetch_fresh_data_task(dataset_name)
-    valid = validate_data_task(data)
+    validate_data_task(data)
     result = run_retraining_task(dataset_name, model_type, drift_suite)
     gate_passed = evaluation_gate_task(result)
     if gate_passed and result.get("version") is not None:

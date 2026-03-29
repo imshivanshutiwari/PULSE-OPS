@@ -1,8 +1,5 @@
 """5 tests for data fetchers."""
 
-import pytest
-from pathlib import Path
-
 
 def test_uci_adult_correct_shape(adult_df):
     """Adult dataset should have close to 48842 rows and 15 cols."""

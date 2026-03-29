@@ -4,7 +4,7 @@ Drift Lab callbacks – interval-driven report reload and distribution update.
 
 import datetime
 import numpy as np
-from dash import Input, Output, State, callback, html, dcc
+from dash import Input, Output, html
 import plotly.graph_objects as go
 import sys
 import os
@@ -12,13 +12,11 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from theme import (
     BG_CARD,
-    BORDER,
     ACCENT_GRN,
     INFO,
     WARNING,
     CRITICAL,
     SUCCESS,
-    TEXT,
     TEXT_DIM,
     FONT,
     PLOT_LAYOUT,
@@ -151,7 +149,10 @@ def register_drift_callbacks(app):
         rng = np.random.default_rng((n_intervals or 0) % 500)
         drift_score = 0.187 + rng.normal(0, 0.01)
         if drift_score > 0.20:
-            msg = f"⚠ HIGH DRIFT DETECTED  bike_sharing/lightgbm  score={drift_score:.3f}  → retraining recommended"
+            msg = (
+                f"⚠ HIGH DRIFT DETECTED  bike_sharing/lightgbm"
+                f"  score={drift_score:.3f}  → retraining recommended"
+            )
             style = {
                 "backgroundColor": "#2a1000",
                 "border": f"1px solid {WARNING}",
@@ -163,7 +164,10 @@ def register_drift_callbacks(app):
                 "marginBottom": "8px",
             }
         elif drift_score > 0.15:
-            msg = f"● DRIFT WARNING  bike_sharing/lightgbm  score={drift_score:.3f}  → monitoring closely"
+            msg = (
+                f"● DRIFT WARNING  bike_sharing/lightgbm"
+                f"  score={drift_score:.3f}  → monitoring closely"
+            )
             style = {
                 "backgroundColor": "#1a1000",
                 "border": f"1px solid {WARNING}",
