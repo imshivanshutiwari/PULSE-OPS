@@ -1,0 +1,1141 @@
+⚡ PULSE-OPS — COPILOT NUCLEAR PROMPT ⚡
+AUTONOMOUS MLOPS PLATFORM · MLFLOW + EVIDENTLY + PREFECT + DOCKER · REAL DATA · MAX LEVEL
+
+pulse_ops_copilot_nuclear_v1.prompt
+⎘ COPY FULL PROMPT
+
+╔══════════════════════════════════════════════════════════════════════╗
+║     GITHUB COPILOT — IRON PROTOCOL · PULSE-OPS                        ║
+║                                                                        ║
+║  YOU ARE A PRINCIPAL MLOPS ENGINEER + DATA PLATFORM ARCHITECT.       ║
+║  BUILD AS IF THIS RUNS IN PRODUCTION AT A REAL AI COMPANY.           ║
+║                                                                        ║
+║  HARD FAILURES — ABSOLUTE ZERO TOLERANCE:                             ║
+║  ✗ stub / TODO / pass / NotImplemented / placeholder anywhere         ║
+║  ✗ mock / fake / random / hardcoded model metrics                     ║
+║  ✗ terminal-only output — everything in browser dashboard             ║
+║  ✗ simplified algorithm — maximum complexity always                   ║
+║  ✗ fewer than 22 visualizations in dashboard                          ║
+║  ✗ agent implementing differently than what prompt says               ║
+║  ✗ downgrading any specified tool/technique/algo/method               ║
+║  ✗ stopping before final checklist is 100% green                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════
+SECTION 0 — ABSOLUTE IRON RULES
+═══════════════════════════════════════════
+
+RULE 1 — BUILD EXACTLY WHAT IS WRITTEN. NO CREATIVITY.
+  Every line of this prompt is a direct order.
+  Copilot CANNOT:
+    - Simplify any component
+    - Replace Prefect with Airflow "for simplicity"
+    - Replace Evidently with custom drift code
+    - Skip any specified algorithm
+    - Use basic threshold alert instead of PSI drift
+  Prompt = Law. Every deviation = HARD FAILURE.
+
+RULE 2 — MAXIMUM TECH COMPLEXITY. NO DOWNGRADE.
+  ✦ Experiment tracking: MLflow with autolog + custom metrics
+                         NOT manual logging only
+  ✦ Drift detection: Evidently AI full suite
+                     (DataDriftPreset + ModelPerformancePreset +
+                      DataQualityPreset + TargetDriftPreset)
+                     NOT PSI alone or manual statistics
+  ✦ Orchestration: Prefect 2.x flows + tasks + deployments
+                   NOT Airflow or simple cron jobs
+  ✦ Model registry: MLflow Model Registry with stage promotion
+                    (Staging → Production → Archived)
+                    NOT filesystem-only model storage
+  ✦ Self-healing: Automatic retraining trigger pipeline
+                  NOT manual alert + human retraining
+  ✦ Feature store: Feast feature store with offline + online
+                   NOT simple pandas DataFrames
+  ✦ Monitoring: Prometheus + Grafana for system metrics
+                NOT custom metrics dict only
+  ✦ Containerization: Docker + Docker Compose full stack
+                      NOT bare Python execution
+  ✦ Data versioning: DVC (Data Version Control)
+                     NOT git-lfs or manual copies
+  Any downgrade = HARD FAILURE
+
+RULE 3 — REAL DATA ONLY. ZERO EXCEPTIONS.
+  All datasets fetched from real open-access sources.
+  BANNED: np.random as features, hardcoded predictions,
+          fake drift injections as "real data",
+          placeholder model outputs
+
+RULE 4 — FILE CREATION TOOL ONLY
+  EVERY file via direct file creation tool.
+  NEVER terminal echo/cat/printf for file content.
+  Terminal ONLY: pip install, python verify, pytest,
+                 docker-compose up, git
+
+RULE 5 — VERIFY BEFORE NEXT
+  python filename.py → exit 0 before next file.
+
+RULE 6 — NO TERMINAL RUNS
+  python dashboard/app.py → browser opens localhost:8050 AUTO
+  import webbrowser; webbrowser.open("http://localhost:8050")
+  ALL output in Dash UI. Never print-only.
+
+RULE 7 — 30 TESTS ALL PASS
+  pytest tests/ -v → 30/30 PASSED
+  No assert True. Real models. Real data. Real assertions.
+
+RULE 8 — FULL REAL INTEGRATION
+  pipeline/main.py MUST import from ALL:
+    data/ models/ drift/ retraining/ orchestration/
+    registry/ monitoring/ feature_store/ dashboard/
+  Fake integration = FAILED.
+
+RULE 9 — EXACT COMMIT
+  git commit -m "feat: complete PULSE-OPS
+
+   - MLflow autolog + custom metrics + Model Registry
+   - Evidently AI full suite: Data+Model+Quality+Target drift
+   - Prefect 2.x flows + tasks + deployments + schedules
+   - Feast feature store: offline + online serving
+   - DVC data versioning + pipeline tracking
+   - Self-healing: automatic retraining on drift detection
+   - Stage promotion: Staging→Production→Archived
+   - Prometheus + Grafana system monitoring
+   - Docker + Docker Compose full stack
+   - Real data: UCI Adult+Iris+Wine+Bike+Credit datasets
+   - 22 visualizations in MLOps Intelligence Ops Dash UI
+   - Zero fake data, browser auto-opens on make run
+   - 30 pytest tests passing + CI/CD green"
+  git push origin main
+
+═══════════════════════════════════════════
+SECTION 1 — PROJECT IDENTITY
+═══════════════════════════════════════════
+
+Project  : PULSE-OPS
+Subtitle : Autonomous MLOps Platform with Drift Detection,
+           Self-Healing Retraining Pipelines, Feature Store,
+           Model Registry and Real-Time System Monitoring
+Language : Python 3.11
+Repo     : pulse-ops
+UI       : Plotly Dash MLOps Intelligence Ops Center
+           (dark green theme)
+Stack    : MLflow + Evidently + Prefect + Feast +
+           DVC + Prometheus + Grafana + Docker
+
+═══════════════════════════════════════════
+SECTION 2 — EXACT FOLDER STRUCTURE (90 FILES)
+═══════════════════════════════════════════
+
+pulse-ops/
+├── README.md
+├── requirements.txt
+├── setup.py
+├── Makefile
+├── .env.example
+├── .gitignore
+├── docker-compose.yml           ← full stack
+├── .dvc/                        ← DVC configuration
+│
+├── configs/
+│   ├── pipeline_config.yaml     ← MLflow + Prefect params
+│   ├── drift_config.yaml        ← Evidently thresholds
+│   ├── model_config.yaml        ← model hyperparams
+│   ├── feast_config.yaml        ← feature store settings
+│   └── monitoring_config.yaml   ← Prometheus + alert rules
+│
+├── data/
+│   ├── __init__.py
+│   ├── fetchers/
+│   │   ├── __init__.py
+│   │   ├── uci_fetcher.py        ← UCI Adult + Wine + Iris
+│   │   ├── bike_fetcher.py       ← UCI Bike Sharing dataset
+│   │   ├── credit_fetcher.py     ← German Credit dataset
+│   │   └── synthetic_drifter.py  ← Physics-based drift sim
+│   ├── processors/
+│   │   ├── __init__.py
+│   │   ├── feature_engineer.py   ← Feature engineering
+│   │   ├── data_validator.py     ← Great Expectations checks
+│   │   ├── data_splitter.py      ← Train/val/test splits
+│   │   └── dataset_builder.py    ← Unified dataset assembly
+│   └── raw/                      ← DVC tracked raw data
+│       └── .gitkeep
+│
+├── feature_store/
+│   ├── __init__.py
+│   ├── feast_repo/
+│   │   ├── feature_store.yaml    ← Feast config
+│   │   ├── features.py           ← Feature view definitions
+│   │   ├── entities.py           ← Entity definitions
+│   │   └── data_sources.py       ← Parquet data sources
+│   ├── offline_store.py          ← Historical feature retrieval
+│   ├── online_store.py           ← Real-time feature serving
+│   └── feature_pipeline.py       ← Feature computation pipeline
+│
+├── models/
+│   ├── __init__.py
+│   ├── base_model.py             ← Abstract base model class
+│   ├── classification/
+│   │   ├── __init__.py
+│   │   ├── gradient_boosting.py  ← XGBoost + LightGBM
+│   │   ├── random_forest.py      ← sklearn RandomForest
+│   │   └── neural_net.py         ← PyTorch MLP classifier
+│   ├── regression/
+│   │   ├── __init__.py
+│   │   ├── gradient_boosting.py  ← XGBoost regression
+│   │   └── neural_net.py         ← PyTorch regression MLP
+│   └── trainer.py                ← Unified training loop
+│
+├── registry/
+│   ├── __init__.py
+│   ├── mlflow_registry.py        ← MLflow Model Registry
+│   ├── stage_promoter.py         ← Staging→Production logic
+│   ├── model_validator.py        ← Pre-promotion validation
+│   └── rollback_manager.py       ← Auto-rollback on failure
+│
+├── drift/
+│   ├── __init__.py
+│   ├── evidently_detector.py     ← Full Evidently suite
+│   ├── data_drift.py             ← DataDriftPreset analysis
+│   ├── model_drift.py            ← ModelPerformancePreset
+│   ├── target_drift.py           ← TargetDriftPreset
+│   ├── data_quality.py           ← DataQualityPreset
+│   └── drift_reporter.py         ← HTML + JSON reports
+│
+├── retraining/
+│   ├── __init__.py
+│   ├── trigger.py                ← Drift-based trigger logic
+│   ├── retraining_pipeline.py    ← Full retraining workflow
+│   ├── hyperopt_tuner.py         ← Optuna HPO integration
+│   └── evaluation_gate.py        ← Performance gate check
+│
+├── orchestration/
+│   ├── __init__.py
+│   ├── prefect_flows.py          ← All Prefect flows
+│   ├── training_flow.py          ← Model training flow
+│   ├── drift_flow.py             ← Scheduled drift check flow
+│   ├── retraining_flow.py        ← Self-healing flow
+│   └── deployment_flow.py        ← Model deployment flow
+│
+├── serving/
+│   ├── __init__.py
+│   ├── fastapi_server.py         ← FastAPI prediction server
+│   ├── predictor.py              ← Model inference logic
+│   └── schemas.py                ← Request/response schemas
+│
+├── monitoring/
+│   ├── __init__.py
+│   ├── prometheus_exporter.py    ← Custom Prometheus metrics
+│   ├── metrics_collector.py      ← System + model metrics
+│   ├── alert_rules.py            ← Alertmanager rules
+│   └── health_checker.py         ← Service health checks
+│
+├── pipeline/
+│   ├── __init__.py
+│   └── main.py                   ← End-to-end entry point
+│
+├── dashboard/
+│   ├── __init__.py
+│   ├── app.py                    ← Opens browser AUTO
+│   ├── theme.py                  ← Green MLOps colors
+│   ├── pages/
+│   │   ├── __init__.py
+│   │   ├── mlops_ops.py          ← Main ops page VIZ 01-07
+│   │   ├── drift_lab.py          ← Drift analysis 08-13
+│   │   ├── registry_hub.py       ← Model registry 14-17
+│   │   ├── pipeline_monitor.py   ← Prefect flows 18-20
+│   │   └── system_health.py      ← Infra metrics 21-22
+│   └── callbacks/
+│       ├── __init__.py
+│       ├── drift_callbacks.py
+│       └── registry_callbacks.py
+│
+├── utils/
+│   ├── __init__.py
+│   ├── logger.py
+│   ├── config_loader.py
+│   ├── checkpoint.py
+│   └── seed.py
+│
+├── tests/
+│   ├── conftest.py
+│   ├── test_data_fetchers.py
+│   ├── test_feature_store.py
+│   ├── test_models.py
+│   ├── test_drift.py
+│   ├── test_retraining.py
+│   ├── test_orchestration.py
+│   └── test_registry.py
+│
+├── notebooks/
+│   ├── 01_data_and_features.ipynb
+│   ├── 02_drift_analysis.ipynb
+│   └── 03_mlops_pipeline_results.ipynb
+│
+├── prometheus/
+│   └── prometheus.yml            ← Prometheus config
+│
+├── grafana/
+│   └── dashboards/
+│       └── pulse_ops.json        ← Grafana dashboard JSON
+│
+├── assets/
+│   ├── architecture_diagram.png
+│   └── results/
+│
+└── .github/
+    └── workflows/
+        ├── ci.yml
+        └── lint.yml
+
+═══════════════════════════════════════════
+SECTION 3 — REQUIREMENTS (EXACT PINS)
+═══════════════════════════════════════════
+
+mlflow==2.13.0
+prefect==2.19.0
+evidently==0.4.26
+feast==0.39.0
+dvc==3.51.2
+optuna==3.6.1
+xgboost==2.0.3
+lightgbm==4.3.0
+torch==2.3.0
+torchvision==0.18.0
+scikit-learn==1.4.2
+great-expectations==0.18.15
+prometheus-client==0.20.0
+fastapi==0.111.0
+uvicorn==0.29.0
+plotly==5.22.0
+dash==2.17.0
+dash-bootstrap-components==1.6.0
+wandb==0.16.6
+numpy==1.26.4
+scipy==1.13.0
+pandas==2.2.2
+pyarrow==16.0.0
+tqdm==4.66.4
+pydantic==2.7.1
+pyyaml==6.0.1
+python-dotenv==1.0.1
+requests==2.31.0
+aiohttp==3.9.5
+pytest==8.2.0
+black==24.4.2
+flake8==7.0.0
+jupyter==1.0.0
+psutil==5.9.8
+docker==7.1.0
+webbrowser
+
+docker-compose.yml (FULL STACK):
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.13.0
+    ports: ["5000:5000"]
+    volumes: ["./mlruns:/mlruns"]
+    command: mlflow server --host 0.0.0.0
+
+  prefect:
+    image: prefecthq/prefect:2-latest
+    ports: ["4200:4200"]
+    command: prefect server start
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports: ["9090:9090"]
+    volumes: ["./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"]
+
+  grafana:
+    image: grafana/grafana:latest
+    ports: ["3000:3000"]
+    volumes: ["./grafana/dashboards:/var/lib/grafana/dashboards"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: pulse123
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+═══════════════════════════════════════════
+SECTION 4 — REAL DATA SOURCES
+═══════════════════════════════════════════
+
+── data/fetchers/uci_fetcher.py ── REAL DATA
+class UCIFetcher:
+  REAL UCI ML Repository datasets.
+
+  methods:
+    fetch_adult_dataset() -> pd.DataFrame
+      URL: https://archive.ics.uci.edu/ml/machine-learning-databases/
+           adult/adult.data
+      48842 rows, 14 features, binary income classification
+      Columns: age,workclass,fnlwgt,education,marital-status,
+               occupation,relationship,race,sex,capital-gain,
+               capital-loss,hours-per-week,native-country,income
+
+    fetch_wine_quality() -> pd.DataFrame
+      URL: https://archive.ics.uci.edu/ml/machine-learning-databases/
+           wine-quality/winequality-red.csv
+      1599 rows, 11 features, quality regression (0-10)
+
+    fetch_iris() -> pd.DataFrame
+      sklearn.datasets.load_iris() → real UCI Iris
+      150 rows, 4 features, 3-class classification
+
+    cache_all(path='data/raw/')
+      DVC add each dataset file
+
+── data/fetchers/bike_fetcher.py ── REAL DATA
+class BikeSharingFetcher:
+  REAL UCI Bike Sharing dataset.
+  URL: https://archive.ics.uci.edu/ml/machine-learning-databases/
+       00275/Bike-Sharing-Dataset.zip
+
+  methods:
+    download_and_extract() -> str
+      requests.get(URL) → ZipFile extract → return path
+    load_hourly() -> pd.DataFrame
+      17379 rows, 16 features
+      Target: cnt (hourly bike rentals)
+      Temporal features: season,yr,mnth,hr,weekday,workingday
+      Weather: weathersit,temp,atemp,hum,windspeed
+
+── data/fetchers/credit_fetcher.py ── REAL DATA
+class GermanCreditFetcher:
+  REAL German Credit dataset (Statlog).
+  URL: https://archive.ics.uci.edu/ml/machine-learning-databases/
+       statlog/german/german.data
+
+  methods:
+    download_and_parse() -> pd.DataFrame
+      1000 rows, 20 attributes, binary creditworthiness
+      Parse space-separated file with column names
+    encode_categorical() -> pd.DataFrame
+      Label encode all categorical columns
+
+── data/fetchers/synthetic_drifter.py ── PHYSICS-BASED
+class PhysicsBasedDriftSimulator:
+  Simulate realistic data drift based on REAL dataset
+  statistics. NOT random — physics equations used.
+
+  Drift types:
+    Covariate shift: P(X) changes, P(Y|X) unchanged
+    Concept drift: P(Y|X) changes, P(X) unchanged
+    Sudden drift: abrupt distribution change
+    Gradual drift: slow mean/variance shift
+
+  methods:
+    simulate_covariate_shift(df: pd.DataFrame,
+                              feature: str,
+                              shift_magnitude: float) -> pd.DataFrame
+      New distribution: N(μ + shift*σ, σ²)
+      where μ,σ computed from REAL data
+
+    simulate_concept_drift(df: pd.DataFrame,
+                            noise_scale: float = 0.1) -> pd.DataFrame
+      Add feature-correlated noise to labels
+      Maintains real data distribution shape
+
+    simulate_gradual_drift(df: pd.DataFrame,
+                            n_steps: int = 10) -> List[pd.DataFrame]
+      Linear interpolation between original and shifted
+
+═══════════════════════════════════════════
+SECTION 5 — MAX COMPLEXITY SPECS
+═══════════════════════════════════════════
+
+── feature_store/feast_repo/features.py ──
+Define REAL Feast feature views:
+
+from feast import FeatureView, Field, Entity
+from feast.types import Float32, Int64, String
+
+customer_entity = Entity(
+    name="customer_id",
+    description="Customer identifier")
+
+income_features = FeatureView(
+    name="income_features",
+    entities=[customer_entity],
+    ttl=timedelta(days=365),
+    schema=[
+        Field(name="age", dtype=Int64),
+        Field(name="hours_per_week", dtype=Int64),
+        Field(name="capital_gain", dtype=Float32),
+        Field(name="capital_loss", dtype=Float32),
+        Field(name="education_num", dtype=Int64),
+    ],
+    source=FileSource(
+        path="data/raw/adult_features.parquet",
+        timestamp_field="event_timestamp"))
+
+── drift/evidently_detector.py ── FULL SUITE
+class EvidentlyDriftDetector:
+  Full Evidently AI drift detection suite.
+  4 preset types, all fully implemented.
+
+  methods:
+    __init__():
+      from evidently.report import Report
+      from evidently.metric_preset import (
+          DataDriftPreset, ModelPerformancePreset,
+          DataQualityPreset, TargetDriftPreset)
+
+    detect_data_drift(reference: pd.DataFrame,
+                      current: pd.DataFrame) -> DriftReport
+      report = Report(metrics=[DataDriftPreset()])
+      report.run(reference_data=reference,
+                 current_data=current)
+      drift_score = report.as_dict()['metrics'][0]['result']
+      DriftReport: {
+        dataset_drift: bool,
+        drift_share: float,
+        n_drifted_columns: int,
+        per_column_drift: dict
+      }
+
+    detect_model_performance(reference: pd.DataFrame,
+                              current: pd.DataFrame,
+                              column_mapping) -> PerformanceReport
+      report = Report(metrics=[ModelPerformancePreset()])
+      Returns: {accuracy, precision, recall, f1,
+                roc_auc, per_class_metrics}
+
+    detect_target_drift(reference, current,
+                        column_mapping) -> TargetDriftReport
+      report = Report(metrics=[TargetDriftPreset()])
+      Returns: {target_drift_detected, p_value,
+                stattest_name, target_correlations}
+
+    detect_data_quality(data: pd.DataFrame) -> QualityReport
+      report = Report(metrics=[DataQualityPreset()])
+      Returns: {missing_values, duplicates,
+                outliers, correlations}
+
+    run_full_suite(reference, current,
+                   column_mapping) -> FullDriftSuite
+      All 4 reports combined
+      Save HTML reports to drift/reports/
+      Returns: {data_drift, model_perf,
+                target_drift, data_quality}
+
+    generate_html_report(full_suite,
+                          save_path: str) -> str
+      Evidently HTML report embedded in dashboard
+
+── retraining/trigger.py ──
+class DriftBasedRetrigger:
+  Automatic retraining trigger on drift detection.
+
+  Trigger conditions (ANY triggers retraining):
+    data_drift_share > drift_config.data_threshold (0.3)
+    model_accuracy_drop > drift_config.perf_threshold (0.05)
+    target_drift_pvalue < drift_config.target_alpha (0.05)
+    data_quality_score < drift_config.quality_threshold (0.9)
+
+  methods:
+    should_retrain(drift_suite: FullDriftSuite) -> bool
+      Check all 4 conditions
+      Log reason if triggered
+
+    compute_urgency(drift_suite) -> str
+      CRITICAL: data_drift_share > 0.5
+      HIGH: data_drift_share > 0.3
+      MEDIUM: performance drop only
+      LOW: quality issues only
+
+    schedule_retraining(urgency: str) -> PrefectFlowRun
+      CRITICAL → immediate trigger
+      HIGH → next hour schedule
+      MEDIUM → next day schedule
+      LOW → weekly schedule
+
+── retraining/hyperopt_tuner.py ──
+class OptunaHPOTuner:
+  Optuna hyperparameter optimization.
+
+  methods:
+    tune_xgboost(X_train, y_train,
+                 n_trials=50) -> dict
+      study = optuna.create_study(
+          direction='maximize',
+          sampler=optuna.samplers.TPESampler())
+      study.optimize(objective, n_trials=n_trials)
+
+      Hyperparams searched:
+        max_depth: [3, 10]
+        learning_rate: [0.01, 0.3] (log)
+        n_estimators: [100, 1000]
+        subsample: [0.6, 1.0]
+        colsample_bytree: [0.6, 1.0]
+        reg_alpha: [1e-8, 1.0] (log)
+        reg_lambda: [1e-8, 1.0] (log)
+
+    tune_lightgbm(X_train, y_train, n_trials=50) -> dict
+    tune_neural_net(X_train, y_train, n_trials=30) -> dict
+    log_to_mlflow(study, model_name: str)
+      MLflow: log all trials + best params
+
+── registry/mlflow_registry.py ──
+class MLflowModelRegistry:
+  MLflow Model Registry with full stage lifecycle.
+
+  Stages: None → Staging → Production → Archived
+
+  methods:
+    register_model(run_id: str,
+                   model_name: str,
+                   artifact_path: str) -> ModelVersion
+      mlflow.register_model(
+          f"runs:/{run_id}/{artifact_path}", model_name)
+
+    promote_to_staging(model_name: str,
+                        version: int) -> ModelVersion
+      Runs validation gate before promotion
+      client.transition_model_version_stage(
+          name=model_name, version=version,
+          stage="Staging")
+
+    promote_to_production(model_name: str,
+                           version: int,
+                           champion_version: int) -> bool
+      A/B comparison: challenger vs champion
+      If challenger_metric > champion_metric + threshold:
+        promote challenger
+        archive old champion
+      Else: keep champion
+
+    rollback(model_name: str) -> ModelVersion
+      Load last Production version before current
+      Promote it back to Production
+      Archive failed version
+
+    get_production_model(model_name: str) -> mlflow.pyfunc
+      mlflow.pyfunc.load_model(
+          f"models:/{model_name}/Production")
+
+── orchestration/prefect_flows.py ──
+ALL Prefect flows fully implemented:
+
+@flow(name="training-flow",
+      description="Train and register new model version")
+def training_flow(dataset_name: str,
+                  model_type: str,
+                  run_hpo: bool = True):
+  with mlflow.start_run():
+    data = load_features_task(dataset_name)
+    X_train, X_val, X_test, y_train, y_val, y_test = \
+        split_data_task(data)
+    if run_hpo:
+      best_params = hpo_task(X_train, y_train)
+    else:
+      best_params = load_default_params_task(model_type)
+    model = train_model_task(X_train, y_train, best_params)
+    metrics = evaluate_model_task(model, X_val, y_val)
+    mlflow.log_metrics(metrics)
+    register_model_task(model, model_type)
+
+@flow(name="drift-detection-flow",
+      description="Scheduled drift check")
+def drift_detection_flow(reference_date: str,
+                          current_date: str):
+  reference = load_reference_data_task(reference_date)
+  current = load_current_data_task(current_date)
+  drift_suite = run_evidently_task(reference, current)
+  store_drift_report_task(drift_suite)
+  if should_retrain_task(drift_suite):
+    retraining_flow.submit(triggered_by='drift')
+
+@flow(name="retraining-flow",
+      description="Self-healing retraining pipeline")
+def retraining_flow(triggered_by: str = 'manual'):
+  notify_task(f"Retraining triggered by: {triggered_by}")
+  data = fetch_fresh_data_task()
+  validate_data_task(data)
+  new_version = training_flow(data, run_hpo=True)
+  gate_passed = evaluation_gate_task(new_version)
+  if gate_passed:
+    promote_to_production_task(new_version)
+    notify_task("New model promoted to Production")
+  else:
+    rollback_task()
+    notify_task("Gate failed, keeping current model")
+
+@flow(name="deployment-flow")
+def deployment_flow(model_version: int):
+  model = load_production_model_task()
+  health_check_task(model)
+  deploy_to_serving_task(model)
+
+Prefect Deployments (scheduled):
+  drift_detection_flow:
+    schedule: IntervalSchedule(interval=timedelta(hours=6))
+  training_flow:
+    schedule: CronSchedule(cron="0 2 * * 0")  ← weekly
+
+── monitoring/prometheus_exporter.py ──
+class PulseOpsPrometheusExporter:
+  Custom Prometheus metrics via prometheus_client.
+
+  Metrics exported (all real, updated live):
+    model_prediction_latency_seconds (Histogram)
+    model_accuracy_gauge (Gauge)
+    model_drift_score (Gauge)
+    data_quality_score (Gauge)
+    retraining_count_total (Counter)
+    feature_store_requests_total (Counter)
+    mlflow_active_runs (Gauge)
+    prefect_flow_runs_total (Counter, labels=[status])
+
+  methods:
+    start_server(port: int = 8001):
+      prometheus_client.start_http_server(port)
+    update_model_metrics(accuracy, drift_score)
+    record_prediction(latency_seconds: float)
+    increment_retraining_counter()
+
+── dashboard/app.py ──
+MUST contain:
+  import webbrowser
+  if __name__ == '__main__':
+      webbrowser.open('http://localhost:8050')
+      app.run(debug=False, port=8050, host='0.0.0.0')
+
+═══════════════════════════════════════════
+SECTION 6 — CONFIGS (EXACT VALUES)
+═══════════════════════════════════════════
+
+pipeline_config.yaml:
+  mlflow:
+    tracking_uri: http://localhost:5000
+    experiment_name: pulse-ops
+    autolog: true
+    artifact_location: ./mlruns
+  prefect:
+    server_url: http://localhost:4200
+    work_pool: default-agent-pool
+  datasets:
+    - adult
+    - wine_quality
+    - bike_sharing
+    - german_credit
+  active_models:
+    adult: xgboost_classifier
+    wine_quality: xgboost_regressor
+    bike_sharing: lightgbm_regressor
+    german_credit: neural_net_classifier
+
+drift_config.yaml:
+  data_drift_threshold: 0.3
+  performance_drop_threshold: 0.05
+  target_drift_alpha: 0.05
+  data_quality_threshold: 0.9
+  check_interval_hours: 6
+  drift_window_days: 7
+  reference_window_days: 30
+
+model_config.yaml:
+  xgboost:
+    max_depth: 6
+    learning_rate: 0.1
+    n_estimators: 300
+  lightgbm:
+    num_leaves: 31
+    learning_rate: 0.05
+    n_estimators: 500
+  neural_net:
+    hidden_dims: [256, 128, 64]
+    dropout: 0.3
+    lr: 0.001
+    epochs: 50
+  hpo_trials: 50
+  eval_metric_threshold: 0.02
+
+monitoring_config.yaml:
+  prometheus_port: 8001
+  grafana_port: 3000
+  alert_accuracy_threshold: 0.80
+  alert_latency_ms: 200
+  alert_drift_threshold: 0.4
+
+═══════════════════════════════════════════
+SECTION 7 — 22 VISUALIZATIONS (ALL REAL DATA)
+═══════════════════════════════════════════
+
+ALL using real MLflow/Evidently/Prefect data.
+MLOps Intelligence dark green theme.
+
+PAGE 1 — MLOPS OPS CENTER (main):
+
+VIZ01: LIVE MODEL STATUS BOARD
+  Cards per deployed model (4 models):
+    Dataset name / Model type / Version /
+    Current Accuracy / Drift Status / Last Retrain
+  Color: GREEN=healthy, AMBER=watch, RED=drifting
+  Click card → drill into model details
+
+VIZ02: MODEL PERFORMANCE TIMELINE
+  Line chart: accuracy/F1/AUC over time
+  4 models overlaid (different colors)
+  Drift events marked as vertical red lines
+  Retraining events marked as green triangles
+  Rolling 30-day window
+
+VIZ03: DRIFT SCORE GAUGES (live)
+  4 circular gauges per active model:
+    Data Drift Share / Performance Drop /
+    Target Drift p-value / Data Quality Score
+  Color: green<0.2, amber 0.2-0.3, red>0.3
+  Updates every 6 hours (Prefect schedule)
+
+VIZ04: RETRAINING ACTIVITY LOG
+  Scrolling table:
+    TIMESTAMP | TRIGGER | MODEL | OLD_VERSION |
+    NEW_VERSION | GATE_RESULT | DURATION
+  Success=green, Failed=red, Rolled back=amber
+
+VIZ05: PREFECT FLOW RUN STATUS
+  Gantt chart: flows × time
+  training/drift/retraining/deployment flows
+  Each task within flow visible
+  Status: COMPLETED/RUNNING/FAILED
+
+VIZ06: MLFLOW EXPERIMENT TRACKER
+  Parallel coordinates plot: all runs
+  Each line = one experiment run
+  Axes: hyperparams + metrics
+  Filter by model type + date range
+  Click run → open MLflow UI
+
+VIZ07: FEATURE STORE USAGE METRICS
+  Feast feature request rate (requests/min)
+  Feature freshness: time since last update
+  Online vs offline store hit rate
+  Feature computation latency histogram
+
+PAGE 2 — DRIFT ANALYSIS LAB:
+
+VIZ08: EVIDENTLY DATA DRIFT REPORT (embedded)
+  Full Evidently HTML report in iframe
+  Per-column drift status
+  Distribution comparison plots (all features)
+  PSI + KS test results per feature
+
+VIZ09: FEATURE DISTRIBUTION COMPARISON
+  Before/after drift: violin plots per feature
+  Reference distribution vs current
+  KS test p-value per feature
+  Most drifted features ranked
+
+VIZ10: MODEL PERFORMANCE DEGRADATION
+  Evidently ModelPerformancePreset output
+  Metrics over time: accuracy/precision/recall/F1
+  Error analysis: confusion matrix (before vs after)
+  Calibration plot (predicted prob vs actual)
+
+VIZ11: TARGET DRIFT ANALYSIS
+  Target variable distribution: reference vs current
+  Statistical test results (PSI / KS / chi-square)
+  Time-series of target mean/std
+  Correlation changes: features vs target
+
+VIZ12: DATA QUALITY SCORECARD
+  Missing values heatmap (features × time windows)
+  Duplicate detection count over time
+  Outlier rate per feature (IQR-based)
+  Schema validation: new categories detected
+
+VIZ13: DRIFT HISTORY CALENDAR
+  GitHub-style contribution heatmap
+  Each cell = one day, color = max drift score
+  Hover: which features drifted on that day
+  Click day → drill into that day's drift report
+
+PAGE 3 — MODEL REGISTRY HUB:
+
+VIZ14: MODEL VERSION LIFECYCLE GRAPH (Cytoscape)
+  Nodes: model versions (None→Staging→Prod→Archived)
+  Edge: version transitions with timestamps
+  Current Production highlighted (gold border)
+  Click version → show all metrics
+
+VIZ15: A/B COMPARISON CHART
+  Champion vs Challenger side-by-side:
+    Accuracy / F1 / AUC / Latency (ms)
+  Delta bars: improvement/degradation per metric
+  Statistical significance test result
+
+VIZ16: HYPERPARAMETER IMPORTANCE
+  Optuna importance plot per model
+  X: hyperparameter, Y: importance score
+  Best trial highlighted
+  Parallel coordinates for top-10 trials
+
+VIZ17: MODEL LINEAGE TIMELINE
+  X: time, Y: model version
+  Points: training events
+  Color: promotion stage
+  Tooltips: training data date, accuracy, drift trigger
+
+PAGE 4 — PIPELINE MONITOR:
+
+VIZ18: PREFECT FLOW DEPENDENCY GRAPH (Cytoscape)
+  4 flows as nodes: Training/Drift/Retrain/Deploy
+  Task nodes within each flow
+  Execution time per task (bar on hover)
+  Failed tasks highlighted red
+
+VIZ19: PIPELINE SUCCESS RATE
+  Stacked bar: success / failed / retried per day
+  Last 30 days
+  Per-flow breakdown
+  Mean duration trend line
+
+VIZ20: DVC DATA VERSION TREE
+  Tree view: dataset versions
+  Each node: dataset name + hash + date
+  Currently used version highlighted
+  Diff stats: rows added/removed
+
+PAGE 5 — SYSTEM HEALTH:
+
+VIZ21: PROMETHEUS METRICS DASHBOARD
+  Live gauges (Prometheus scrape):
+    Prediction latency (P50/P95/P99)
+    Requests/second per model
+    CPU + memory usage per service
+    Feature store request rate
+  Alert status: firing / resolved
+
+VIZ22: SYSTEM HEALTH SCORECARD
+  Live traffic lights:
+    MLflow server / Prefect server /
+    Feature store / Model serving API /
+    Prometheus / Grafana / Redis /
+    DVC remote / Data pipeline
+  Uptime % per service (last 7 days)
+  Overall system health score: A/B/C/D/F
+
+═══════════════════════════════════════════
+SECTION 8 — UI THEME (EXACT)
+═══════════════════════════════════════════
+
+dashboard/theme.py:
+BG_PRIMARY  = '#050a06'
+BG_PANEL    = '#080d08'
+BG_CARD     = '#0a1008'
+BORDER      = '#0f1e0a'
+ACCENT_GRN  = '#639922'
+ACCENT_DIM  = '#172a06'
+SUCCESS     = '#97c459'
+WARNING     = '#ba7517'
+CRITICAL    = '#e24b4a'
+INFO        = '#378add'
+TEXT        = '#c0dd97'
+TEXT_DIM    = '#1a3008'
+FONT        = 'JetBrains Mono, monospace'
+
+Header:
+  ◈ PULSE-OPS  [MLOPS PLATFORM v1.0]
+  MODELS: 4 ACTIVE | DRIFT: [status] |
+  LAST RETRAIN: [timestamp] | ● ONLINE
+  [current timestamp]
+
+Status bar:
+  [MLFLOW: v2.13][PREFECT: CONNECTED][EVIDENTLY: ACTIVE]
+  [FEAST: ONLINE][DVC: SYNCED][PROMETHEUS: SCRAPING]
+
+═══════════════════════════════════════════
+SECTION 9 — ALL 30 TESTS
+═══════════════════════════════════════════
+
+tests/conftest.py:
+  All fixtures use REAL data (cached):
+  adult_df() → real UCI Adult dataset
+  wine_df() → real UCI Wine Quality
+  bike_df() → real Bike Sharing dataset
+  trained_model() → trained XGBoost on adult_df
+  mlflow_client() → real MLflow client
+
+test_data_fetchers.py (5):
+  test_uci_adult_correct_shape
+    → fetch_adult_dataset() → shape == (48842, 15)
+  test_wine_quality_target_range
+    → fetch_wine_quality()['quality'].between(3,9).all()
+  test_bike_sharing_temporal_features
+    → load_hourly() has 'hr', 'season', 'temp' columns
+  test_credit_binary_labels
+    → german_credit['creditworthiness'].isin([0,1]).all()
+  test_dvc_tracking_file_exists
+    → check .dvc files created for each dataset
+
+test_feature_store.py (4):
+  test_feast_feature_view_registered
+    → feast_repo has income_features view
+  test_offline_retrieval_returns_correct_shape
+    → get_historical_features() → df.shape[1] == n_features
+  test_online_store_latency_under_10ms
+    → 100 lookups → mean < 10ms
+  test_feature_freshness_tracked
+    → timestamp column present in all feature views
+
+test_models.py (4):
+  test_xgboost_trains_and_logs_mlflow
+    → train → mlflow.search_runs() → run exists
+  test_model_accuracy_above_baseline
+    → trained XGBoost on adult → accuracy > 0.80
+  test_optuna_hpo_improves_baseline
+    → hpo_accuracy > default_accuracy
+  test_autolog_captures_all_params
+    → mlflow run has n_estimators, max_depth logged
+
+test_drift.py (5):
+  test_evidently_detects_real_drift
+    → inject shifted distribution → dataset_drift == True
+  test_evidently_stable_on_same_data
+    → reference == current → dataset_drift == False
+  test_all_4_presets_run_without_error
+    → run_full_suite() → 4 reports returned
+  test_psi_threshold_triggers_retrain
+    → PSI > 0.3 → should_retrain() == True
+  test_html_report_generated
+    → generate_html_report() → file exists + size > 0
+
+test_retraining.py (4):
+  test_trigger_fires_on_drift
+    → inject high drift → trigger.should_retrain() == True
+  test_evaluation_gate_passes_better_model
+    → new_accuracy > current + threshold → gate_passed
+  test_rollback_restores_previous_version
+    → rollback() → production_version == previous_version
+  test_retraining_logged_in_mlflow
+    → retraining_flow run → MLflow experiment updated
+
+test_orchestration.py (4):
+  test_training_flow_completes
+    → training_flow('adult', 'xgboost') → state.is_completed()
+  test_drift_flow_creates_report
+    → drift_detection_flow(ref, cur) → drift report saved
+  test_prefect_deployment_registered
+    → deployment exists in Prefect server
+  test_scheduled_drift_check_configured
+    → drift_flow deployment has IntervalSchedule
+
+test_registry.py (4):
+  test_model_registers_successfully
+    → register_model() → version returned
+  test_staging_promotion_works
+    → promote_to_staging() → stage == 'Staging'
+  test_ab_comparison_selects_better_model
+    → challenger better → promoted to Production
+  test_rollback_demotes_bad_version
+    → rollback() → bad version → Archived
+
+═══════════════════════════════════════════
+SECTION 10 — MAKEFILE
+═══════════════════════════════════════════
+
+make install    → pip install -r requirements.txt
+make stack      → docker-compose up -d
+make fetch      → python data/processors/dataset_builder.py --fetch
+make dvc        → dvc add data/raw/ && dvc push
+make feast      → cd feature_store/feast_repo && feast apply
+make train      → python orchestration/training_flow.py
+make drift      → python orchestration/drift_flow.py
+make retrain    → python orchestration/retraining_flow.py
+make run        → python dashboard/app.py (OPENS BROWSER AUTO)
+make api        → uvicorn serving.fastapi_server:app --port 8000
+make test       → pytest tests/ -v --color=yes
+make lint       → black . --line-length 100 && flake8 .
+make notebook   → jupyter notebook notebooks/
+make clean      → find . -name __pycache__ -exec rm -rf {} +
+
+═══════════════════════════════════════════
+SECTION 11 — NOTEBOOKS (REAL DATA)
+═══════════════════════════════════════════
+
+01_data_and_features.ipynb:
+  - Load all 4 real datasets, print shapes
+  - Feature distributions per dataset
+  - Feast feature view demonstration
+  - DVC lineage visualization
+  - Data quality report (Great Expectations)
+  - Drift simulation: covariate vs concept
+
+02_drift_analysis.ipynb:
+  - Run full Evidently suite on Adult dataset
+  - Inject gradual drift → visualize detection
+  - PSI vs KS test comparison
+  - Trigger threshold sensitivity analysis
+  - Real vs simulated drift comparison
+
+03_mlops_pipeline_results.ipynb:
+  - MLflow experiment comparison (10 runs)
+  - Optuna HPO: best params + importance plot
+  - Model version lifecycle visualization
+  - Retraining impact: before/after metrics
+  - A/B champion-challenger comparison
+  - System cost analysis: compute + API usage
+
+═══════════════════════════════════════════
+FINAL CHECKLIST — ALL GREEN BEFORE COMMIT
+═══════════════════════════════════════════
+
+REAL DATA:
+[ ] UCI Adult (48842 rows) downloaded + DVC tracked
+[ ] UCI Wine Quality downloaded + DVC tracked
+[ ] Bike Sharing dataset downloaded + DVC tracked
+[ ] German Credit dataset downloaded + DVC tracked
+[ ] grep np.random|fake|mock|placeholder → ZERO in data/
+
+STACK:
+[ ] docker-compose up -d → all 5 services running
+[ ] MLflow UI accessible at localhost:5000
+[ ] Prefect UI accessible at localhost:4200
+[ ] Prometheus at localhost:9090
+[ ] Grafana at localhost:3000
+
+CODE:
+[ ] All 90 files created and complete
+[ ] grep TODO|pass|NotImplemented|\.\.\. → ZERO in .py
+[ ] python -c "
+    from drift.evidently_detector import EvidentlyDriftDetector;
+    from registry.mlflow_registry import MLflowModelRegistry;
+    from orchestration.prefect_flows import training_flow;
+    from retraining.trigger import DriftBasedRetrigger;
+    from feature_store.offline_store import OfflineStore;
+    from monitoring.prometheus_exporter import PulseOpsPrometheusExporter;
+    from dashboard.app import app;
+    print('ALL IMPORTS OK')" → ALL IMPORTS OK
+
+MLOPS STACK:
+[ ] make feast → Feast apply succeeds
+[ ] make dvc → DVC tracking confirmed
+[ ] make train → MLflow experiment logged
+[ ] make drift → Evidently report generated
+[ ] make retrain → self-healing pipeline runs
+
+RUNTIME:
+[ ] make run → browser opens localhost:8050 AUTOMATICALLY
+[ ] 4 model status cards visible (VIZ01)
+[ ] Drift gauges update from real Evidently (VIZ03)
+[ ] Evidently HTML report embedded (VIZ08)
+[ ] Prefect flow graph visible (VIZ18)
+[ ] Prometheus metrics updating (VIZ21)
+[ ] All 22 visualizations render with real data
+[ ] Green MLOps theme applied throughout
+
+TESTS:
+[ ] pytest tests/ -v → 30/30 PASSED
+[ ] black --check . --line-length 100 → clean
+[ ] flake8 . --max-line-length=100 → 0 errors
+[ ] All 3 notebooks Restart & Run All → no errors
+
+FINAL:
+[ ] GitHub Actions CI → green on main
+[ ] README 14 sections complete
+[ ] Commit message matches RULE 9 exactly
+[ ] PR title: "feat: complete PULSE-OPS implementation"
+[ ] Merge ONLY after CI green
+  
