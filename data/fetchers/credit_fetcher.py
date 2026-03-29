@@ -7,16 +7,30 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-CREDIT_URL = (
-    "https://archive.uci.edu/static/public/144/statlog+german+credit+data.zip"
-)
+CREDIT_URL = "https://archive.uci.edu/static/public/144/statlog+german+credit+data.zip"
 RAW_DIR = Path(__file__).parent.parent / "raw"
 
 GERMAN_COLUMNS = [
-    "status", "duration", "credit_history", "purpose", "credit_amount",
-    "savings", "employment", "installment_rate", "personal_status", "guarantors",
-    "residence_since", "property", "age", "installment_plans", "housing",
-    "existing_credits", "job", "liable_people", "telephone", "foreign_worker",
+    "status",
+    "duration",
+    "credit_history",
+    "purpose",
+    "credit_amount",
+    "savings",
+    "employment",
+    "installment_rate",
+    "personal_status",
+    "guarantors",
+    "residence_since",
+    "property",
+    "age",
+    "installment_plans",
+    "housing",
+    "existing_credits",
+    "job",
+    "liable_people",
+    "telephone",
+    "foreign_worker",
     "creditworthiness",
 ]
 
@@ -28,6 +42,7 @@ class GermanCreditFetcher:
 
     def _download_raw(self) -> pd.DataFrame:
         import zipfile
+
         zip_path = self.cache_dir / "german_credit.zip"
         extract_dir = self.cache_dir / "german_credit_raw"
         if not zip_path.exists():

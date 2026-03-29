@@ -85,7 +85,7 @@ class MLflowModelRegistry:
         # Find archived versions (those with archived_v* aliases)
         archived = []
         for v in versions:
-            for alias in (v.aliases or []):
+            for alias in v.aliases or []:
                 if alias.startswith(ALIAS_ARCHIVED_PREFIX):
                     archived.append(v)
                     break
@@ -107,9 +107,7 @@ class MLflowModelRegistry:
             model_name, ALIAS_PRODUCTION, restore_version.version
         )
         # Remove its archived alias since it's now production
-        self._clear_alias(
-            model_name, f"{ALIAS_ARCHIVED_PREFIX}{restore_version.version}"
-        )
+        self._clear_alias(model_name, f"{ALIAS_ARCHIVED_PREFIX}{restore_version.version}")
         logger.info(f"Rolled back {model_name} to v{restore_version.version}")
         return self.client.get_model_version(model_name, restore_version.version)
 

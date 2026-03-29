@@ -7,6 +7,7 @@ logger = get_logger(__name__)
 @task(name="fetch-fresh-data", retries=2)
 def fetch_fresh_data_task(dataset_name: str):
     from feature_store.feature_pipeline import FeaturePipeline
+
     fp = FeaturePipeline()
     return fp.compute_features(dataset_name)
 
@@ -14,6 +15,7 @@ def fetch_fresh_data_task(dataset_name: str):
 @task(name="validate-data")
 def validate_data_task(data):
     from data.processors.data_validator import DataValidator
+
     validator = DataValidator()
     result = validator.validate(data)
     if not result["overall_passed"]:
@@ -24,6 +26,7 @@ def validate_data_task(data):
 @task(name="run-retraining")
 def run_retraining_task(dataset_name: str, model_type: str, drift_suite=None):
     from retraining.retraining_pipeline import RetrainingPipeline
+
     pipeline = RetrainingPipeline()
     return pipeline.run(dataset_name, model_type, drift_suite=drift_suite, force=True)
 
@@ -36,6 +39,7 @@ def evaluation_gate_task(result: dict):
 @task(name="promote-to-production")
 def promote_to_production_task(model_type: str, version: int):
     from registry.mlflow_registry import MLflowModelRegistry
+
     reg = MLflowModelRegistry()
     try:
         versions = reg.list_versions(model_type)
@@ -53,6 +57,7 @@ def promote_to_production_task(model_type: str, version: int):
 @task(name="rollback")
 def rollback_task(model_type: str):
     from registry.rollback_manager import RollbackManager
+
     rm = RollbackManager()
     return rm.rollback_to_previous(model_type)
 

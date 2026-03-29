@@ -11,9 +11,7 @@ class DataQualityAnalyzer:
 
     def analyze(self, data: pd.DataFrame) -> QualityReport:
         report = self.detector.detect_data_quality(data)
-        logger.info(
-            f"Quality: missing={report.missing_values}, dups={report.duplicates}"
-        )
+        logger.info(f"Quality: missing={report.missing_values}, dups={report.duplicates}")
         return report
 
     def compute_quality_score(self, report: QualityReport, n_rows: int) -> float:

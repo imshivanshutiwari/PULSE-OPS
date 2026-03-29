@@ -30,6 +30,7 @@ class MetricsCollector:
     def get_mlflow_metrics(self, tracking_uri: str = "http://localhost:5000") -> Dict[str, Any]:
         try:
             import mlflow
+
             mlflow.set_tracking_uri(tracking_uri)
             client = mlflow.tracking.MlflowClient(tracking_uri)
             experiments = client.search_experiments()

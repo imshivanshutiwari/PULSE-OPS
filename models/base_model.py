@@ -19,7 +19,13 @@ class BaseModel(ABC):
         """Build/instantiate the model with given hyperparameters."""
 
     @abstractmethod
-    def fit(self, X_train: np.ndarray, y_train: np.ndarray, X_val: np.ndarray = None, y_val: np.ndarray = None) -> Dict[str, float]:
+    def fit(
+        self,
+        X_train: np.ndarray,
+        y_train: np.ndarray,
+        X_val: np.ndarray = None,
+        y_val: np.ndarray = None,
+    ) -> Dict[str, float]:
         """Train the model, return training metrics."""
 
     @abstractmethod

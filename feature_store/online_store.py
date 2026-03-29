@@ -29,7 +29,9 @@ class OnlineStore:
         if path and path.exists():
             df = pd.read_parquet(path)
             self._cache[dataset_name] = {i: row.to_dict() for i, row in df.iterrows()}
-            logger.info(f"Loaded {dataset_name} into online store: {len(self._cache[dataset_name])} records")
+            logger.info(
+                f"Loaded {dataset_name} into online store: {len(self._cache[dataset_name])} records"
+            )
 
     def get_online_features(self, dataset_name: str, entity_id: int) -> Dict[str, Any]:
         t0 = time.time()

@@ -64,9 +64,7 @@ class FullDriftSuite:
 class EvidentlyDriftDetector:
     """Full Evidently AI drift detection suite."""
 
-    def detect_data_drift(
-        self, reference: pd.DataFrame, current: pd.DataFrame
-    ) -> DriftReport:
+    def detect_data_drift(self, reference: pd.DataFrame, current: pd.DataFrame) -> DriftReport:
         report = Report(metrics=[DataDriftPreset()])
         report.run(reference_data=reference, current_data=current)
         result = report.as_dict()
@@ -84,7 +82,9 @@ class EvidentlyDriftDetector:
             if m.get("metric") == "DataDriftTable":
                 drift_by_col = m.get("result", {}).get("drift_by_columns", {})
                 for col, val in drift_by_col.items():
-                    per_col[col] = val.get("drift_detected", False) if isinstance(val, dict) else bool(val)
+                    per_col[col] = (
+                        val.get("drift_detected", False) if isinstance(val, dict) else bool(val)
+                    )
 
         return DriftReport(
             dataset_drift=bool(drift_result.get("dataset_drift", False)),
@@ -215,6 +215,7 @@ class EvidentlyDriftDetector:
 
     def generate_html_report(self, full_suite: FullDriftSuite, save_path: str) -> str:
         import json
+
         data = {
             "data_drift": {
                 "dataset_drift": full_suite.data_drift.dataset_drift,

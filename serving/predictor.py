@@ -19,6 +19,7 @@ class ModelPredictor:
     def load_model(self, model_name: str, tracking_uri: str = None) -> bool:
         try:
             from registry.mlflow_registry import MLflowModelRegistry
+
             reg = MLflowModelRegistry(tracking_uri)
             model = reg.get_production_model(model_name)
             self._models[model_name] = model

@@ -51,7 +51,9 @@ class XGBoostClassifier(BaseModel):
                 if val_proba.shape[1] == 2:
                     metrics["val_roc_auc"] = float(roc_auc_score(y_val, val_proba[:, 1]))
                 else:
-                    metrics["val_roc_auc"] = float(roc_auc_score(y_val, val_proba, multi_class="ovr"))
+                    metrics["val_roc_auc"] = float(
+                        roc_auc_score(y_val, val_proba, multi_class="ovr")
+                    )
             except Exception:
                 pass
         logger.info(f"XGBoost trained: {metrics}")

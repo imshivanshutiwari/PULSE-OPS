@@ -8,9 +8,7 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-BIKE_URL = (
-    "https://archive.uci.edu/static/public/275/bike+sharing+dataset.zip"
-)
+BIKE_URL = "https://archive.uci.edu/static/public/275/bike+sharing+dataset.zip"
 RAW_DIR = Path(__file__).parent.parent / "raw"
 
 

@@ -1,4 +1,5 @@
 """4 tests for model training."""
+
 import pytest
 import numpy as np
 import pandas as pd
@@ -38,9 +39,9 @@ def test_model_accuracy_above_baseline(adult_df):
     model = XGBoostClassifier()
     model.build({"n_estimators": 50, "max_depth": 4, "learning_rate": 0.1})
     metrics = model.fit(X_train, y_train, X_val, y_val)
-    assert metrics.get("val_accuracy", 0) > 0.75, (
-        f"Expected >0.75, got {metrics.get('val_accuracy', 0):.4f}"
-    )
+    assert (
+        metrics.get("val_accuracy", 0) > 0.75
+    ), f"Expected >0.75, got {metrics.get('val_accuracy', 0):.4f}"
 
 
 def test_lightgbm_trains_regression(wine_df):

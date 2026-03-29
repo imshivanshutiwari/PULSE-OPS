@@ -46,6 +46,7 @@ class FeatureEngineer:
 
     def add_event_timestamp(self, df: pd.DataFrame) -> pd.DataFrame:
         import datetime
+
         df = df.copy()
         base = datetime.datetime(2023, 1, 1)
         df["event_timestamp"] = pd.date_range(base, periods=len(df), freq="1min")

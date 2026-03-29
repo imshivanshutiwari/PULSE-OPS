@@ -23,7 +23,9 @@ class FeaturePipeline:
         logger.info(f"Materialized {count} records for {dataset_name}")
         return count
 
-    def get_training_dataset(self, dataset_name: str, target_col: str, feature_cols: list = None) -> tuple:
+    def get_training_dataset(
+        self, dataset_name: str, target_col: str, feature_cols: list = None
+    ) -> tuple:
         df = self.compute_features(dataset_name, feature_cols)
         if target_col in df.columns:
             X = df.drop(columns=[target_col, "event_timestamp"], errors="ignore")

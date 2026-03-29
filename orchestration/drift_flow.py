@@ -11,6 +11,7 @@ REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 @task(name="load-reference-data", retries=2)
 def load_reference_data_task(dataset_name: str):
     from feature_store.feature_pipeline import FeaturePipeline
+
     fp = FeaturePipeline()
     df = fp.compute_features(dataset_name)
     n = len(df)
@@ -21,6 +22,7 @@ def load_reference_data_task(dataset_name: str):
 def load_current_data_task(dataset_name: str):
     from feature_store.feature_pipeline import FeaturePipeline
     from data.fetchers.synthetic_drifter import PhysicsBasedDriftSimulator
+
     fp = FeaturePipeline()
     df = fp.compute_features(dataset_name)
     n = len(df)
@@ -32,6 +34,7 @@ def load_current_data_task(dataset_name: str):
 def run_evidently_task(reference, current):
     from drift.evidently_detector import EvidentlyDriftDetector
     from evidently import ColumnMapping
+
     detector = EvidentlyDriftDetector()
     num_ref = reference.select_dtypes(include=["number"])
     num_cur = current.select_dtypes(include=["number"])
@@ -46,6 +49,7 @@ def run_evidently_task(reference, current):
 @task(name="store-drift-report")
 def store_drift_report_task(suite):
     from drift.drift_reporter import DriftReporter
+
     reporter = DriftReporter()
     path = reporter.save_json_report(suite)
     logger.info(f"Drift report stored: {path}")
@@ -55,6 +59,7 @@ def store_drift_report_task(suite):
 @task(name="check-should-retrain")
 def should_retrain_task(suite):
     from retraining.trigger import DriftBasedRetrigger
+
     trigger = DriftBasedRetrigger()
     return trigger.should_retrain(suite)
 
@@ -80,6 +85,7 @@ def drift_detection_flow(dataset_name: str = "adult"):
 
 if __name__ == "__main__":
     from utils.config_loader import get_pipeline_config
+
     cfg = get_pipeline_config()
     for dataset in cfg["datasets"]:
         drift_detection_flow(dataset_name=dataset)

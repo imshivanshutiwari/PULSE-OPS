@@ -1,4 +1,5 @@
 """4 tests for MLflow model registry."""
+
 import pytest
 import os
 import tempfile

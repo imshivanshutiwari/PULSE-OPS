@@ -22,11 +22,10 @@ class DriftBasedRetrigger:
             reasons.append(
                 f"data_drift_share={drift_suite.data_drift.drift_share:.3f} > {self.data_threshold}"
             )
-        if (
-            drift_suite.model_perf
-            and drift_suite.model_perf.accuracy < (1.0 - self.perf_threshold)
-        ):
-            reasons.append(f"model_accuracy_drop detected (acc={drift_suite.model_perf.accuracy:.3f})")
+        if drift_suite.model_perf and drift_suite.model_perf.accuracy < (1.0 - self.perf_threshold):
+            reasons.append(
+                f"model_accuracy_drop detected (acc={drift_suite.model_perf.accuracy:.3f})"
+            )
         if (
             drift_suite.target_drift
             and drift_suite.target_drift.target_drift_detected

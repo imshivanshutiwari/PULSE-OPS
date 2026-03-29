@@ -17,7 +17,9 @@ class StagePromoter:
     ) -> bool:
         validation = self.validator.validate_version(model_name, str(challenger_version))
         if not validation["passed"]:
-            logger.warning(f"Validation failed for {model_name} v{challenger_version}: {validation}")
+            logger.warning(
+                f"Validation failed for {model_name} v{challenger_version}: {validation}"
+            )
             return False
         result = self.registry.promote_to_production(
             model_name, challenger_version, champion_version

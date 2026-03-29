@@ -1,4 +1,5 @@
 """5 tests for drift detection."""
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -32,9 +33,9 @@ def test_evidently_detects_real_drift(adult_df):
     reference, current = _make_reference_current(sample, shift=True)
     detector = EvidentlyDriftDetector()
     report = detector.detect_data_drift(reference, current)
-    assert report.dataset_drift is True, (
-        f"Expected drift=True, got drift_share={report.drift_share:.3f}"
-    )
+    assert (
+        report.dataset_drift is True
+    ), f"Expected drift=True, got drift_share={report.drift_share:.3f}"
 
 
 def test_evidently_stable_on_same_data(adult_df):
@@ -45,9 +46,9 @@ def test_evidently_stable_on_same_data(adult_df):
     reference, _ = _make_reference_current(sample, shift=False)
     detector = EvidentlyDriftDetector()
     report = detector.detect_data_drift(reference, reference.copy())
-    assert report.drift_share < 0.5, (
-        f"Expected low drift on same data, got {report.drift_share:.3f}"
-    )
+    assert (
+        report.drift_share < 0.5
+    ), f"Expected low drift on same data, got {report.drift_share:.3f}"
 
 
 def test_all_4_presets_run_without_error(adult_df):

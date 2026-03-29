@@ -9,18 +9,27 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-ADULT_URL = (
-    "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
-)
+ADULT_URL = "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 ADULT_COLUMNS = [
-    "age", "workclass", "fnlwgt", "education", "education_num",
-    "marital_status", "occupation", "relationship", "race", "sex",
-    "capital_gain", "capital_loss", "hours_per_week", "native_country", "income",
+    "age",
+    "workclass",
+    "fnlwgt",
+    "education",
+    "education_num",
+    "marital_status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "capital_gain",
+    "capital_loss",
+    "hours_per_week",
+    "native_country",
+    "income",
 ]
 
 WINE_URL = (
-    "https://archive.ics.uci.edu/ml/machine-learning-databases/"
-    "wine-quality/winequality-red.csv"
+    "https://archive.ics.uci.edu/ml/machine-learning-databases/" "wine-quality/winequality-red.csv"
 )
 
 RAW_DIR = Path(__file__).parent.parent / "raw"
@@ -47,7 +56,9 @@ class UCIFetcher:
             skipinitialspace=True,
         )
         df.dropna(inplace=True)
-        df["income"] = df["income"].str.strip().map({"<=50K": 0, ">50K": 1, "<=50K.": 0, ">50K.": 1})
+        df["income"] = (
+            df["income"].str.strip().map({"<=50K": 0, ">50K": 1, "<=50K.": 0, ">50K.": 1})
+        )
         df.to_csv(cache_path, index=False)
         logger.info(f"Adult dataset saved: {df.shape}")
         return df

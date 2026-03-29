@@ -7,6 +7,7 @@ logger = get_logger(__name__)
 @task(name="load-production-model", retries=2)
 def load_production_model_task(model_name: str):
     from registry.mlflow_registry import MLflowModelRegistry
+
     try:
         reg = MLflowModelRegistry()
         model = reg.get_production_model(model_name)
@@ -23,6 +24,7 @@ def health_check_task(model, model_name: str):
         return False
     try:
         import numpy as np
+
         test_input = np.zeros((1, 10))
         model.predict(test_input)
         logger.info(f"Health check passed for {model_name}")

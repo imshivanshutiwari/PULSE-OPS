@@ -1,4 +1,5 @@
 """5 tests for data fetchers."""
+
 import pytest
 from pathlib import Path
 
@@ -22,9 +23,9 @@ def test_bike_sharing_temporal_features(bike_df):
 
 def test_credit_binary_labels(credit_df):
     """German credit should have binary creditworthiness."""
-    assert set(credit_df["creditworthiness"].unique()).issubset({0, 1}), (
-        f"Non-binary labels: {credit_df['creditworthiness'].unique()}"
-    )
+    assert set(credit_df["creditworthiness"].unique()).issubset(
+        {0, 1}
+    ), f"Non-binary labels: {credit_df['creditworthiness'].unique()}"
 
 
 def test_uci_adult_no_missing_after_fetch(adult_df):

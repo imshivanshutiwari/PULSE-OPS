@@ -25,9 +25,7 @@ class DataSplitter:
         X_train, X_val, y_train, y_val = train_test_split(
             X_temp, y_temp, test_size=val_fraction, random_state=self.random_state
         )
-        logger.info(
-            f"Split: train={len(X_train)}, val={len(X_val)}, test={len(X_test)}"
-        )
+        logger.info(f"Split: train={len(X_train)}, val={len(X_val)}, test={len(X_test)}")
         return X_train, X_val, X_test, y_train, y_val, y_test
 
     def temporal_split(

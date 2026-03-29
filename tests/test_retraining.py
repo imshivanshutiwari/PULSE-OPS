@@ -1,4 +1,5 @@
 """4 tests for retraining."""
+
 import pytest
 import pandas as pd
 import numpy as np

@@ -14,6 +14,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install black==24.4.2 flake8==7.0.0
+      - run: pip install black==26.3.1 flake8==7.0.0
       - run: black --check . --line-length 100
       - run: flake8 . --max-line-length=100 --exclude=.git,__pycache__,*.egg-info,build,dist

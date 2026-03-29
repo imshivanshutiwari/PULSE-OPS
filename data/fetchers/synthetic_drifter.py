@@ -76,8 +76,6 @@ class PhysicsBasedDriftSimulator:
         for col in cols:
             mu = df[col].mean()
             sigma = df[col].std()
-            drifted[col] = np.random.normal(
-                mu + shift_magnitude * sigma, sigma, size=len(df)
-            )
+            drifted[col] = np.random.normal(mu + shift_magnitude * sigma, sigma, size=len(df))
         logger.info(f"Sudden drift applied to {len(cols)} features")
         return drifted

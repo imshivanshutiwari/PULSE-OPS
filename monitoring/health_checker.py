@@ -48,11 +48,21 @@ class HealthChecker:
         t0 = time.time()
         try:
             import redis
+
             r = redis.Redis(host="localhost", port=6379, socket_connect_timeout=2)
             r.ping()
-            return {"service": "redis", "status": "healthy", "latency_ms": (time.time() - t0) * 1000}
+            return {
+                "service": "redis",
+                "status": "healthy",
+                "latency_ms": (time.time() - t0) * 1000,
+            }
         except Exception as e:
-            return {"service": "redis", "status": "offline", "error": str(e), "latency_ms": (time.time() - t0) * 1000}
+            return {
+                "service": "redis",
+                "status": "offline",
+                "error": str(e),
+                "latency_ms": (time.time() - t0) * 1000,
+            }
 
     def check_all(self) -> Dict[str, Dict[str, Any]]:
         results = {}

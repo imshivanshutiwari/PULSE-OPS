@@ -2,7 +2,12 @@ from datetime import timedelta
 from feast import FeatureView, Field
 from feast.types import Float32, Int64
 from feature_store.feast_repo.entities import customer_entity, bike_entity
-from feature_store.feast_repo.data_sources import adult_source, wine_source, bike_source, credit_source
+from feature_store.feast_repo.data_sources import (
+    adult_source,
+    wine_source,
+    bike_source,
+    credit_source,
+)
 
 income_features = FeatureView(
     name="income_features",

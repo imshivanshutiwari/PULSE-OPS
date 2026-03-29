@@ -64,7 +64,9 @@ class PulseOpsPrometheusExporter:
             except OSError as e:
                 logger.warning(f"Prometheus server already running or port in use: {e}")
 
-    def update_model_metrics(self, model_name: str, accuracy: float, drift_score_val: float) -> None:
+    def update_model_metrics(
+        self, model_name: str, accuracy: float, drift_score_val: float
+    ) -> None:
         model_accuracy_gauge.labels(model_name=model_name).set(accuracy)
         model_drift_score.labels(model_name=model_name).set(drift_score_val)
 

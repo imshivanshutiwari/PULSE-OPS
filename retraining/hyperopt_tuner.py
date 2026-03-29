@@ -36,15 +36,25 @@ class OptunaHPOTuner:
             }
             if task == "classification":
                 model = xgb.XGBClassifier(**params)
-                scores = cross_val_score(model, X_train, y_train, cv=self.cv_folds, scoring="accuracy")
+                scores = cross_val_score(
+                    model, X_train, y_train, cv=self.cv_folds, scoring="accuracy"
+                )
                 return scores.mean()
             else:
-                model = xgb.XGBRegressor(**{k: v for k, v in params.items() if k not in ["use_label_encoder", "eval_metric"]})
+                model = xgb.XGBRegressor(
+                    **{
+                        k: v
+                        for k, v in params.items()
+                        if k not in ["use_label_encoder", "eval_metric"]
+                    }
+                )
                 scores = cross_val_score(model, X_train, y_train, cv=self.cv_folds, scoring="r2")
                 return scores.mean()
 
         direction = "maximize"
-        study = optuna.create_study(direction=direction, sampler=optuna.samplers.TPESampler(seed=42))
+        study = optuna.create_study(
+            direction=direction, sampler=optuna.samplers.TPESampler(seed=42)
+        )
         study.optimize(objective, n_trials=self.n_trials, show_progress_bar=False)
         self.log_to_mlflow(study, f"xgboost_{task}_hpo")
         return study.best_params
@@ -64,13 +74,17 @@ class OptunaHPOTuner:
             }
             if task == "classification":
                 model = lgb.LGBMClassifier(**params)
-                scores = cross_val_score(model, X_train, y_train, cv=self.cv_folds, scoring="accuracy")
+                scores = cross_val_score(
+                    model, X_train, y_train, cv=self.cv_folds, scoring="accuracy"
+                )
             else:
                 model = lgb.LGBMRegressor(**params)
                 scores = cross_val_score(model, X_train, y_train, cv=self.cv_folds, scoring="r2")
             return scores.mean()
 
-        study = optuna.create_study(direction="maximize", sampler=optuna.samplers.TPESampler(seed=42))
+        study = optuna.create_study(
+            direction="maximize", sampler=optuna.samplers.TPESampler(seed=42)
+        )
         study.optimize(objective, n_trials=self.n_trials, show_progress_bar=False)
         self.log_to_mlflow(study, f"lightgbm_{task}_hpo")
         return study.best_params
@@ -92,13 +106,17 @@ class OptunaHPOTuner:
             }
             if task == "classification":
                 model = MLPClassifier(**params)
-                scores = cross_val_score(model, X_train, y_train, cv=self.cv_folds, scoring="accuracy")
+                scores = cross_val_score(
+                    model, X_train, y_train, cv=self.cv_folds, scoring="accuracy"
+                )
             else:
                 model = MLPRegressor(**params)
                 scores = cross_val_score(model, X_train, y_train, cv=self.cv_folds, scoring="r2")
             return scores.mean()
 
-        study = optuna.create_study(direction="maximize", sampler=optuna.samplers.TPESampler(seed=42))
+        study = optuna.create_study(
+            direction="maximize", sampler=optuna.samplers.TPESampler(seed=42)
+        )
         study.optimize(objective, n_trials=min(self.n_trials, 30), show_progress_bar=False)
         self.log_to_mlflow(study, f"neural_net_{task}_hpo")
         return study.best_params

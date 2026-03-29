@@ -29,7 +29,9 @@ class ModelTrainer:
     ) -> Dict[str, Any]:
         model_cfg = get_model_config()
         model_type = model.model_name
-        default_params = model_cfg.get(model_type.replace("_classifier", "").replace("_regressor", ""), {})
+        default_params = model_cfg.get(
+            model_type.replace("_classifier", "").replace("_regressor", ""), {}
+        )
         final_params = {**default_params, **(params or {})}
         model.build(final_params)
 

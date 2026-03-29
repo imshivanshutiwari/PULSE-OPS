@@ -13,6 +13,7 @@ class ModelValidator:
     def validate_version(self, model_name: str, version: str) -> Dict[str, Any]:
         try:
             from registry.mlflow_registry import MLflowModelRegistry
+
             reg = MLflowModelRegistry()
             run = reg._get_run_for_version(model_name, version)
             metrics = run.data.metrics

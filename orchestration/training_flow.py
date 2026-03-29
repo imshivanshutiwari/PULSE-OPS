@@ -10,6 +10,7 @@ logger = get_logger(__name__)
 @task(name="load-features", retries=2, retry_delay_seconds=10)
 def load_features_task(dataset_name: str):
     from feature_store.feature_pipeline import FeaturePipeline
+
     target_map = {
         "adult": "income",
         "wine_quality": "quality",
@@ -26,6 +27,7 @@ def load_features_task(dataset_name: str):
 def split_data_task(X, y, target_col: str):
     import pandas as pd
     from data.processors.data_splitter import DataSplitter
+
     df = pd.concat([X, y], axis=1)
     splitter = DataSplitter()
     return splitter.split(df, target_col)
@@ -34,6 +36,7 @@ def split_data_task(X, y, target_col: str):
 @task(name="hpo")
 def hpo_task(X_train, y_train, model_type: str):
     from retraining.hyperopt_tuner import OptunaHPOTuner
+
     tuner = OptunaHPOTuner(n_trials=10)
     task_type = "classification" if "classifier" in model_type else "regression"
     if "xgboost" in model_type:
@@ -66,6 +69,7 @@ def train_model_task(model_type: str, X_train, y_train, X_val, y_val, params: di
 @task(name="register-model")
 def register_model_task(run_id: str, model_type: str):
     from registry.mlflow_registry import MLflowModelRegistry
+
     reg = MLflowModelRegistry()
     try:
         version = reg.register_model(run_id, model_type)
@@ -77,7 +81,9 @@ def register_model_task(run_id: str, model_type: str):
 
 
 @flow(name="training-flow", description="Train and register a new model version")
-def training_flow(dataset_name: str = "adult", model_type: str = "xgboost_classifier", run_hpo: bool = True):
+def training_flow(
+    dataset_name: str = "adult", model_type: str = "xgboost_classifier", run_hpo: bool = True
+):
     logger.info(f"Training flow: dataset={dataset_name}, model={model_type}")
     X, y, target_col = load_features_task(dataset_name)
     X_train, X_val, X_test, y_train, y_val, y_test = split_data_task(X, y, target_col)
@@ -85,6 +91,7 @@ def training_flow(dataset_name: str = "adult", model_type: str = "xgboost_classi
         best_params = hpo_task(X_train, y_train, model_type)
     else:
         from utils.config_loader import get_model_config
+
         cfg = get_model_config()
         key = model_type.replace("_classifier", "").replace("_regressor", "")
         best_params = cfg.get(key, {})
@@ -96,6 +103,7 @@ def training_flow(dataset_name: str = "adult", model_type: str = "xgboost_classi
 
 if __name__ == "__main__":
     from utils.config_loader import get_pipeline_config
+
     cfg = get_pipeline_config()
     for dataset, model in cfg["active_models"].items():
         training_flow(dataset_name=dataset, model_type=model, run_hpo=False)
