@@ -1,4 +1,4 @@
-from registry.mlflow_registry import MLflowModelRegistry
+from registry.mlflow_registry import MLflowModelRegistry, ALIAS_PRODUCTION, ALIAS_STAGING
 from registry.model_validator import ModelValidator
 from utils.logger import get_logger
 
@@ -6,7 +6,7 @@ logger = get_logger(__name__)
 
 
 class StagePromoter:
-    """Manages model stage transitions with validation gates."""
+    """Manages model lifecycle transitions with validation gates (MLflow 3.x alias-based)."""
 
     def __init__(self):
         self.registry = MLflowModelRegistry()
@@ -26,15 +26,21 @@ class StagePromoter:
 
     def archive_old_versions(self, model_name: str, keep_n: int = 3) -> int:
         versions = self.registry.list_versions(model_name)
-        archived = sorted(
-            [v for v in versions if v.current_stage not in ("Production", "Staging")],
+        # Versions that hold neither 'production' nor 'staging' alias
+        unaliased = sorted(
+            [
+                v
+                for v in versions
+                if ALIAS_PRODUCTION not in (v.aliases or [])
+                and ALIAS_STAGING not in (v.aliases or [])
+            ],
             key=lambda v: int(v.version),
         )
-        n_archived = 0
-        for v in archived[:-keep_n] if len(archived) > keep_n else []:
+        n_deleted = 0
+        for v in unaliased[:-keep_n] if len(unaliased) > keep_n else []:
             try:
                 self.registry.client.delete_model_version(model_name, v.version)
-                n_archived += 1
+                n_deleted += 1
             except Exception as e:
                 logger.warning(f"Could not delete version {v.version}: {e}")
-        return n_archived
+        return n_deleted

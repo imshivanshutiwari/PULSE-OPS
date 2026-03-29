@@ -39,11 +39,11 @@ class ModelTrainer:
                 mlflow.set_tags(tags)
             try:
                 if "xgboost" in model_type:
-                    mlflow.xgboost.autolog(log_input_examples=False, silent=True)
+                    mlflow.xgboost.autolog(log_input_examples=False)
                 elif "lightgbm" in model_type:
-                    mlflow.lightgbm.autolog(log_input_examples=False, silent=True)
+                    mlflow.lightgbm.autolog(log_input_examples=False)
                 else:
-                    mlflow.sklearn.autolog(log_input_examples=False, silent=True)
+                    mlflow.sklearn.autolog(log_input_examples=False)
             except Exception:
                 pass
 
