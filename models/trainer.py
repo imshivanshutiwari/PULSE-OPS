@@ -11,11 +11,27 @@ logger = get_logger(__name__)
 
 class ModelTrainer:
     def __init__(self, tracking_uri: str = None):
+        import tempfile
+
         cfg = get_pipeline_config()
-        self.tracking_uri = tracking_uri or cfg["mlflow"]["tracking_uri"]
+        requested_uri = tracking_uri or cfg["mlflow"]["tracking_uri"]
         self.experiment_name = cfg["mlflow"]["experiment_name"]
-        mlflow.set_tracking_uri(self.tracking_uri)
-        mlflow.set_experiment(self.experiment_name)
+
+        # Try the configured URI; fall back to a local file store if unavailable
+        try:
+            mlflow.set_tracking_uri(requested_uri)
+            # Probe the server with a lightweight call
+            mlflow.set_experiment(self.experiment_name)
+            self.tracking_uri = requested_uri
+        except Exception:
+            tmp = tempfile.mkdtemp(prefix="mlruns_")
+            self.tracking_uri = f"file://{tmp}"
+            mlflow.set_tracking_uri(self.tracking_uri)
+            mlflow.set_experiment(self.experiment_name)
+            logger.warning(
+                f"MLflow server at {requested_uri!r} unavailable — "
+                f"falling back to local store: {self.tracking_uri}"
+            )
 
     def train(
         self,

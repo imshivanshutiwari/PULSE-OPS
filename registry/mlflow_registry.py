@@ -23,9 +23,25 @@ class MLflowModelRegistry:
     """
 
     def __init__(self, tracking_uri: str = None):
+        import tempfile
+
         cfg = get_pipeline_config()
-        self.tracking_uri = tracking_uri or cfg["mlflow"]["tracking_uri"]
-        mlflow.set_tracking_uri(self.tracking_uri)
+        requested_uri = tracking_uri or cfg["mlflow"]["tracking_uri"]
+
+        # Probe the tracking URI; fall back to a local file store if unavailable
+        try:
+            mlflow.set_tracking_uri(requested_uri)
+            test_client = MlflowClient(tracking_uri=requested_uri)
+            test_client.search_experiments()
+            self.tracking_uri = requested_uri
+        except Exception:
+            tmp = tempfile.mkdtemp(prefix="mlruns_")
+            self.tracking_uri = f"file://{tmp}"
+            mlflow.set_tracking_uri(self.tracking_uri)
+            logger.warning(
+                f"MLflow server at {requested_uri!r} unavailable — "
+                f"falling back to local store: {self.tracking_uri}"
+            )
         self.client = MlflowClient(tracking_uri=self.tracking_uri)
 
     def register_model(

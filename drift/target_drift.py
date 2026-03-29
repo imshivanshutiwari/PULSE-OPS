@@ -1,5 +1,5 @@
 import pandas as pd
-from evidently import ColumnMapping
+from evidently.legacy.pipeline.column_mapping import ColumnMapping
 from drift.evidently_detector import EvidentlyDriftDetector, TargetDriftReport
 from utils.logger import get_logger
 

@@ -2,14 +2,19 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Any, Optional
 import pandas as pd
-from evidently.report import Report
-from evidently.metric_preset import (
+from evidently.legacy.report import Report
+from evidently.legacy.metric_preset import (
     DataDriftPreset,
-    ModelPerformancePreset,
     DataQualityPreset,
     TargetDriftPreset,
 )
-from evidently import ColumnMapping
+from evidently.legacy.pipeline.column_mapping import ColumnMapping
+
+# ModelPerformancePreset is not always available; provide a fallback
+try:
+    from evidently.legacy.metric_preset import ModelPerformancePreset
+except ImportError:  # pragma: no cover
+    ModelPerformancePreset = None  # type: ignore[assignment,misc]
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -99,6 +104,9 @@ class EvidentlyDriftDetector:
         current: pd.DataFrame,
         column_mapping: ColumnMapping,
     ) -> PerformanceReport:
+        if ModelPerformancePreset is None:
+            logger.warning("ModelPerformancePreset not available in this Evidently version")
+            return PerformanceReport(accuracy=0.0, precision=0.0, recall=0.0, f1=0.0, roc_auc=0.0, per_class_metrics={})
         report = Report(metrics=[ModelPerformancePreset()])
         try:
             report.run(

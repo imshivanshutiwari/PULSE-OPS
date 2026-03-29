@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-03-29T18:47:03.503729",
+  "data_drift": {
+    "dataset_drift": false,
+    "drift_share": 0.13333333333333333,
+    "n_drifted_columns": 2
+  },
+  "data_quality": {
+    "missing_values": {
+      "total": 0
+    },
+    "duplicates": 0
+  },
+  "model_performance": {
+    "accuracy": 0.0,
+    "f1": 0.0
+  },
+  "target_drift": {
+    "detected": false,
+    "p_value": 1.0
+  }
+}

@@ -33,7 +33,7 @@ def load_current_data_task(dataset_name: str):
 @task(name="run-evidently")
 def run_evidently_task(reference, current):
     from drift.evidently_detector import EvidentlyDriftDetector
-    from evidently import ColumnMapping
+    from evidently.legacy.pipeline.column_mapping import ColumnMapping
 
     detector = EvidentlyDriftDetector()
     num_ref = reference.select_dtypes(include=["number"])

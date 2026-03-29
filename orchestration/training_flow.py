@@ -63,14 +63,16 @@ def train_model_task(model_type: str, X_train, y_train, X_val, y_val, params: di
     model = ModelClass()
     trainer = ModelTrainer()
     result = trainer.train(model, X_train.fillna(0), y_train, X_val.fillna(0), y_val, params=params)
+    # Pass the resolved tracking URI so registration uses the same store
+    result["tracking_uri"] = trainer.tracking_uri
     return result
 
 
 @task(name="register-model")
-def register_model_task(run_id: str, model_type: str):
+def register_model_task(run_id: str, model_type: str, tracking_uri: str = None):
     from registry.mlflow_registry import MLflowModelRegistry
 
-    reg = MLflowModelRegistry()
+    reg = MLflowModelRegistry(tracking_uri=tracking_uri)
     try:
         version = reg.register_model(run_id, model_type)
         reg.promote_to_staging(model_type, int(version.version))
@@ -96,7 +98,7 @@ def training_flow(
         key = model_type.replace("_classifier", "").replace("_regressor", "")
         best_params = cfg.get(key, {})
     result = train_model_task(model_type, X_train, y_train, X_val, y_val, best_params)
-    version = register_model_task(result["run_id"], model_type)
+    version = register_model_task(result["run_id"], model_type, result.get("tracking_uri"))
     logger.info(f"Training complete: run_id={result['run_id']}, version={version}")
     return {"run_id": result["run_id"], "metrics": result["metrics"], "version": version}
 
