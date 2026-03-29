@@ -53,15 +53,17 @@ class NeuralNetClassifier(BaseModel):
         loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         self.model.train()
         for epoch in range(self.epochs):
-            total_loss = 0.0
+            epoch_loss = 0.0
             for X_b, y_b in loader:
                 optimizer.zero_grad()
                 out = self.model(X_b)
                 loss = criterion(out, y_b)
                 loss.backward()
                 optimizer.step()
-                total_loss += loss.item()
+                epoch_loss += loss.item()
             scheduler.step()
+            if (epoch + 1) % 10 == 0:
+                logger.debug(f"Epoch {epoch + 1}/{self.epochs} loss={epoch_loss:.4f}")
         self.is_trained = True
         train_preds = self.predict(X_train)
         metrics = {
