@@ -29,7 +29,7 @@ def health_check_task(model, model_name: str):
         return True
     except Exception as e:
         logger.warning(f"Health check failed: {e}")
-        return True
+        return False
 
 
 @task(name="deploy-to-serving")

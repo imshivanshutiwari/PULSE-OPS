@@ -152,7 +152,7 @@ def run_full_pipeline(
         exporter.start_server()
         logger.info("  ✓ Prometheus exporter started on port 8001")
     except Exception as e:
-        logger.warning(f"  ✗ Prometheus: {e}")
+        logger.warning(f"  ✗ Prometheus: {e} — check if port 8001 is already in use")
 
     health = HealthChecker()
     checks = health.check_all()
