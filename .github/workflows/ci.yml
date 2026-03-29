@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, "copilot/**"]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install lint deps
+        run: pip install black==24.4.2 flake8==7.0.0
+      - name: Run black
+        run: black --check . --line-length 100
+      - name: Run flake8
+        run: flake8 . --max-line-length=100 --exclude=.git,__pycache__,*.egg-info,build,dist
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest tests/ -v --color=yes -x
+        env:
+          MLFLOW_TRACKING_URI: "file:///tmp/mlruns_test"
