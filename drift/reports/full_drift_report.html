@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>PULSE-OPS Drift Report</title>
+<style>body{background:#050a06;color:#c0dd97;font-family:'JetBrains Mono',monospace;padding:20px;}
+h1{color:#639922;}h2{color:#97c459;}
+.metric{background:#0a1008;border:1px solid #0f1e0a;padding:10px;margin:5px;display:inline-block;}
+.drift{color:#e24b4a;}.ok{color:#97c459;}</style></head>
+<body>
+<h1>◈ PULSE-OPS Drift Report</h1>
+<h2>Data Drift</h2>
+<div class="metric">Dataset Drift: <span class="ok">
+False</span></div>
+<div class="metric">Drift Share: 0.467</div>
+<div class="metric">Drifted Columns: 7</div>
+<h2>Data Quality</h2>
+<div class="metric">Duplicates: 0</div>
+<pre>{
+  "data_drift": {
+    "dataset_drift": false,
+    "drift_share": 0.4666666666666667,
+    "n_drifted_columns": 7
+  },
+  "data_quality": {
+    "missing_values": {
+      "total": 0
+    },
+    "duplicates": 0
+  }
+}</pre>
+</body></html>

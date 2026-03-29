@@ -1,0 +1,7 @@
+data_drift_threshold: 0.3
+performance_drop_threshold: 0.05
+target_drift_alpha: 0.05
+data_quality_threshold: 0.9
+check_interval_hours: 6
+drift_window_days: 7
+reference_window_days: 30

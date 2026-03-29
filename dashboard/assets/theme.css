@@ -1,0 +1,31 @@
+body {
+    background-color: #050a06;
+    color: #c0dd97;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #080d08; }
+::-webkit-scrollbar-thumb { background: #172a06; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #639922; }
+.tab--selected { border-bottom: 2px solid #639922 !important; }
+.Select-control {
+    background-color: #0a1008 !important;
+    color: #c0dd97 !important;
+    border-color: #0f1e0a !important;
+    font-family: 'JetBrains Mono', monospace;
+}
+.Select-menu-outer {
+    background-color: #080d08 !important;
+    border-color: #0f1e0a !important;
+}
+.Select-option {
+    background-color: #080d08 !important;
+    color: #c0dd97 !important;
+    font-family: 'JetBrains Mono', monospace;
+}
+.Select-option.is-selected { background-color: #172a06 !important; color: #639922 !important; }
+.Select-option.is-focused  { background-color: #172a06 !important; }
+.Select-value-label { color: #c0dd97 !important; }
+.VirtualizedSelectOption { background-color: #080d08 !important; color: #c0dd97 !important; }

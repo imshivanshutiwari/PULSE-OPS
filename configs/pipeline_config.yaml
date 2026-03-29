@@ -1,0 +1,18 @@
+mlflow:
+  tracking_uri: http://localhost:5000
+  experiment_name: pulse-ops
+  autolog: true
+  artifact_location: ./mlruns
+prefect:
+  server_url: http://localhost:4200
+  work_pool: default-agent-pool
+datasets:
+  - adult
+  - wine_quality
+  - bike_sharing
+  - german_credit
+active_models:
+  adult: xgboost_classifier
+  wine_quality: xgboost_regressor
+  bike_sharing: lightgbm_regressor
+  german_credit: neural_net_classifier

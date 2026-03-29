@@ -1,0 +1,6 @@
+prometheus_port: 8001
+grafana_port: 3000
+alert_accuracy_threshold: 0.80
+alert_latency_ms: 200
+alert_drift_threshold: 0.4
+scrape_interval: 15s

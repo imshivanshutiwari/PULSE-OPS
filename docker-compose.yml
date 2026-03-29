@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.13.0
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    command: mlflow server --host 0.0.0.0 --backend-store-uri /mlruns
+    networks:
+      - pulse-ops-net
+
+  prefect:
+    image: prefecthq/prefect:2-latest
+    ports:
+      - "4200:4200"
+    command: prefect server start --host 0.0.0.0
+    networks:
+      - pulse-ops-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - pulse-ops-net
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: pulse123
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/pulse_ops.json
+    networks:
+      - pulse-ops-net
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - pulse-ops-net
+
+networks:
+  pulse-ops-net:
+    driver: bridge
